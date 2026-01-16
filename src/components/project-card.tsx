@@ -131,11 +131,13 @@ export function ProjectCard({
             {tags.map((tag) => (
               <Badge
                 key={tag.name}
-                className="text-[11px] font-medium border border-border h-6 w-fit px-2"
+                className="text-xs font-medium border border-border h-8 w-fit px-2"
                 variant="outline"
               >
-                <span>{tag.icon as unknown as ReactNode}</span>
-                {tag.name}
+                <span className="flex items-center gap-1.5">
+                  {tag.icon as unknown as ReactNode}
+                  <p>{tag.name}</p>
+                </span>
               </Badge>
             ))}
           </div>

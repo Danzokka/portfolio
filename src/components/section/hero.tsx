@@ -1,4 +1,5 @@
 import VideoBg from "../ui/video-bg";
+import { ProgressiveBlur } from "../ui/progressive-blur";
 
 const Hero = () => {
   return (
@@ -11,6 +12,7 @@ const Hero = () => {
           functional web applications. Explore my projects and services below.
         </p>
       </div>
+      <ProgressiveBlur height="50%" position="bottom" />
     </section>
   );
 };
