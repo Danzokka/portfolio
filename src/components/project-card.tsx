@@ -7,6 +7,7 @@ import { Skill } from "@/types/user";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import type { ReactNode } from "react";
 import Markdown from "react-markdown";
 
 function ProjectImage({ src, alt }: { src: string; alt: string }) {
@@ -133,7 +134,7 @@ export function ProjectCard({
                 className="text-[11px] font-medium border border-border h-6 w-fit px-2"
                 variant="outline"
               >
-                <span>{tag.icon}</span>
+                <span>{tag.icon as unknown as ReactNode}</span>
                 {tag.name}
               </Badge>
             ))}
