@@ -21,6 +21,7 @@ type Contact = {
 
 type Work = {
   company: string;
+  position: string;
   href: string;
   location: string;
   logo: string;

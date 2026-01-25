@@ -42,11 +42,74 @@ export const DATA: User = {
       name: "TypeScript",
       icon: <Typescript className="w-6 h-6" />,
     },
+    {
+      name: "TypeScript",
+      icon: <Typescript className="w-6 h-6" />,
+    },
+    {
+      name: "TypeScript",
+      icon: <Typescript className="w-6 h-6" />,
+    },
+    {
+      name: "TypeScript",
+      icon: <Typescript className="w-6 h-6" />,
+    },
+    {
+      name: "TypeScript",
+      icon: <Typescript className="w-6 h-6" />,
+    },
+    {
+      name: "TypeScript",
+      icon: <Typescript className="w-6 h-6" />,
+    },
+    {
+      name: "TypeScript",
+      icon: <Typescript className="w-6 h-6" />,
+    },
+    {
+      name: "TypeScript",
+      icon: <Typescript className="w-6 h-6" />,
+    },
+    {
+      name: "TypeScript",
+      icon: <Typescript className="w-6 h-6" />,
+    },
+    {
+      name: "TypeScript",
+      icon: <Typescript className="w-6 h-6" />,
+    },
+    {
+      name: "TypeScript",
+      icon: <Typescript className="w-6 h-6" />,
+    },
   ],
   work: [
     {
       company: "Edukativa",
       href: "https://edukativa.com",
+      position: "Software Engineer",
+      location: "Remote",
+      logo: "/work/edukativa.png",
+      startDate: "2023-03-01",
+      endDate: "2024-05-01",
+      responsibilities: [
+        "Led the development of the company's main SaaS product, an online course platform, using Next.js, Node.js, and PostgreSQL.",
+        "Implemented new features and optimized existing ones, resulting in a 30% increase in user engagement.",
+        "Collaborated with cross-functional teams to define, design, and ship new features.",
+      ],
+      description:
+        "Edukativa is an online learning platform that offers courses on various topics, including programming, design, and marketing. As a Software Engineer, I was responsible for developing and maintaining the platform's core features.",
+      technologies: [
+        {
+          name: "Next.js",
+          icon: <NextjsIconDark className="w-6 h-6" />,
+        },
+      ],
+    },
+    {
+      company: "Edukativa",
+      href: "https://edukativa.com",
+      position: "Software Engineer",
       location: "Remote",
       logo: "/work/edukativa.png",
       startDate: "2023-03-01",
@@ -74,7 +137,7 @@ export const DATA: User = {
       logo: "/education/iesb.png",
       startDate: "2019-01-01",
       endDate: "2023-12-01",
-    }
+    },
   ],
   projects: [
     {
@@ -98,6 +161,6 @@ export const DATA: User = {
           href: "https://painel.danzokka.com",
         },
       ],
-    }
+    },
   ],
 };
