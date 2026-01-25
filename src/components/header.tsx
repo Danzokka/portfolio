@@ -17,11 +17,10 @@ const Logo = ({ className }: { className?: string }) => (
 const Header = () => {
   const navLinks = [
     { name: "Home", href: "#" },
-    { name: "Company", href: "#" },
-    { name: "Marketplace", href: "#" },
-    { name: "Features", href: "#" },
-    { name: "Team", href: "#" },
-    { name: "Contact", href: "#" },
+    { name: "Projects", href: "#projects" },
+    { name: "About", href: "#about" },
+    { name: "Services", href: "#services" },
+    { name: "Contact", href: "#contact" },
   ];
 
   return (
