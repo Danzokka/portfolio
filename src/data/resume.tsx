@@ -201,4 +201,28 @@ export const DATA: User = {
       icon: <NotebookIcon className="w-6 h-6" />,
     },
   ],
+  reviews: [
+    {
+      avatar: "/placeholder.png",
+      name: "Client Name",
+      position: "CEO of Business X",
+      rating: 5,
+      reviewText:
+        "This is a sample review. The service provided was exceptional and exceeded my expectations.",
+    },
+  ],
+  metrics: [
+    {
+      value: "100+",
+      label: "Clients Served",
+    },
+    {
+      value: "250K+",
+      label: "Lines of Code",
+    },
+    {
+      value: "50+",
+      label: "Projects Completed",
+    },
+  ],
 };

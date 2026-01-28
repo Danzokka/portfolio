@@ -4,46 +4,63 @@ import { ShineBorder } from "./ui/shine-border";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { DATA } from "@/data/resume";
+import { DELAY_TIME } from "@/data/config";
+import { BlurFade } from "./ui/blur-fade";
+import { H2 } from "./ui/typography";
+import ShiningButton from "./ui/shining-button";
 
 const Footer = () => {
   return (
     <footer className="w-full">
       <div className="w-full px-4 pt-16 pb-8 sm:px-6 lg:px-8 lg:pt-24">
-        <div className="w-full flex items-center justify-center text-lg">
-          <span className="flex items-center relative p-2 pr-4 rounded-full">
-            <ShineBorder shineColor="white" borderWidth={2} />
-            <Dot className="size-8" />
-            Available for work
-          </span>
-        </div>
+        <BlurFade delay={DELAY_TIME + 0 * 0.5} className="" inView>
+          <div className="w-full flex items-center justify-center text-lg">
+            <span className="flex items-center relative p-2 pr-4 rounded-full">
+              <ShineBorder shineColor="white" borderWidth={2} />
+              <Dot className="size-8" />
+              Available for work
+            </span>
+          </div>
+        </BlurFade>
         <div className="text-center mt-4">
-          <h2 className="text-3xl font-extrabold text-gray-900 sm:text-5xl dark:text-white">
-            Lorem ipsum dolor sit amet
-          </h2>
-
-          <Button asChild className="mt-8 px-6 py-3 text-lg font-medium">
-            <Link href="#">Get Started</Link>
-          </Button>
+          <BlurFade delay={DELAY_TIME + 1 * 0.5} className="" inView>
+            <H2>Lorem ipsum dolor sit amet</H2>
+          </BlurFade>
+          <BlurFade delay={DELAY_TIME + 2 * 0.5} className="" inView>
+            <ShiningButton
+              href="#"
+              className="mt-8 px-6 py-3 text-lg font-medium"
+            >
+              Get Started
+            </ShiningButton>
+          </BlurFade>
 
           <div>
             {/* Social Media Icons */}
             {
               /* Placeholder for social media icons */
-              DATA.contact.social.map((social) => (
-                <Button
+              DATA.contact.social.map((social, index) => (
+                <BlurFade
+                  delay={DELAY_TIME + (3 + index) * 0.5}
+                  className=""
+                  inView
                   key={social.name}
-                  asChild
-                  variant={"ghost"}
-                  size={"icon-lg"}
                 >
-                  <Link
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Button
+                    key={social.name}
+                    asChild
+                    variant={"ghost"}
+                    size={"icon-lg"}
                   >
-                    {social.icon}
-                  </Link>
-                </Button>
+                    <Link
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {social.icon}
+                    </Link>
+                  </Button>
+                </BlurFade>
               ))
             }
           </div>

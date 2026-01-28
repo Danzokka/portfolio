@@ -15,7 +15,7 @@ const Skills = () => {
       {DATA.skills.map((skill, index) => (
         <BlurFade
           key={skill.name}
-          delay={DELAY_TIME + (index + 3) * 0.5}
+          delay={DELAY_TIME + (index + 4) * 0.5}
           className=""
         >
           <Badge key={skill.name} variant={"default"}>
@@ -34,7 +34,7 @@ const Works = () => {
       {DATA.work.map((work, index) => (
         <BlurFade
           key={work.company}
-          delay={DELAY_TIME + (index + DATA.skills.length + 3) * 0.5}
+          delay={DELAY_TIME + (index + DATA.skills.length + 5) * 0.5}
           className=""
         >
           <div key={work.company}>
@@ -58,22 +58,22 @@ const About = () => {
       <BlurSeparator title="Sobre Mim" />
       <div className="min-h-screen h-full w-full grid grid-cols-2 mt-8">
         <div className="flex flex-col justify-center items-center p-8">
-          <BlurFade delay={DELAY_TIME + 0 * 0.5} className="" inView>
+          <BlurFade delay={DELAY_TIME + 1 * 0.5} className="" inView>
             <H2>About the Rafael</H2>
           </BlurFade>
-          <BlurFade delay={DELAY_TIME + 1 * 0.5} className="" inView>
+          <BlurFade delay={DELAY_TIME + 2 * 0.5} className="" inView>
             <Lead>
               Our team is composed of passionate professionals dedicated to
               delivering the best solutions for our clients. Get to know the
               people behind the projects.
             </Lead>
           </BlurFade>
-          <BlurFade delay={DELAY_TIME + 2 * 0.5} className="w-full" inView>
+          <BlurFade delay={DELAY_TIME + 3 * 0.5} className="w-full" inView>
             <Separator />
           </BlurFade>
           <Skills />
           <BlurFade
-            delay={DELAY_TIME + (DATA.skills.length + 2) * 0.5}
+            delay={DELAY_TIME + (DATA.skills.length + 4) * 0.5}
             className="w-full"
             inView
           >
@@ -84,8 +84,7 @@ const About = () => {
         <div className="w-full">
           {/* Image */}
           <BlurFade
-            delay={DELAY_TIME + 3 * 0.5}
-            duration={100 * DELAY_TIME * ((DATA.skills.length + DATA.work.length) /2 )}
+            delay={DELAY_TIME + 1 * 0.5}
             className="w-full h-full"
             inView
           >

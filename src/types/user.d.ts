@@ -63,6 +63,19 @@ export type Service = {
   icon: JSX.Element;
 }
 
+type Review = {
+  avatar: string;
+  name: string;
+  position: string;
+  rating: number;
+  reviewText: string;
+}
+
+type Metric = {
+  value: string;
+  label: string;
+}
+
 type User = {
   name: string;
   initials: string;
@@ -78,4 +91,6 @@ type User = {
   education: Education[];
   projects: Project[];
   services: Service[];
+  reviews: Review[];
+  metrics: Metric[];
 };
