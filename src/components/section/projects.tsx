@@ -3,8 +3,9 @@ import { ProjectCard } from "@/components/project-card";
 import { DATA } from "@/data/resume";
 import BlurSeparator from "../ui/blur-separator";
 import { DELAY_TIME } from "@/data/config";
+import { H2, Lead } from "../ui/typography";
 
-export default function ProjectsSection() {
+export default function Projects() {
   return (
     <section id="projects">
       <div className="flex min-h-screen h-full flex-col gap-y-8">
@@ -14,16 +15,14 @@ export default function ProjectsSection() {
           </BlurFade>
           <div className="flex flex-col gap-y-3 items-center justify-center">
             <BlurFade delay={DELAY_TIME + 1 * 0.5} className="" inView>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
-                Veja os meus últimos trabalhos
-              </h2>
+              <H2>Veja os meus últimos trabalhos</H2>
             </BlurFade>
             <BlurFade delay={DELAY_TIME + 2 * 0.5} className="" inView>
-              <p className="text-muted-foreground md:text-lg/relaxed lg:text-base/relaxed xl:text-lg/relaxed text-balance text-center">
+              <Lead>
                 Já trabalhei em uma variedade de projetos, desde sites simples
                 até aplicações web complexas. Aqui estão alguns dos meus
                 favoritos.
-              </p>
+              </Lead>
             </BlurFade>
           </div>
         </div>
