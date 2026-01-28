@@ -1,5 +1,5 @@
 import { Icons } from "@/components/icons";
-import { HomeIcon, NotebookIcon } from "lucide-react";
+import { Globe, Headset, HomeIcon, NotebookIcon } from "lucide-react";
 import { ReactLight } from "@/components/ui/svgs/reactLight";
 import { NextjsIconDark } from "@/components/ui/svgs/nextjsIconDark";
 import { Typescript } from "@/components/ui/svgs/typescript";
@@ -161,6 +161,44 @@ export const DATA: User = {
           href: "https://painel.danzokka.com",
         },
       ],
+    },
+  ],
+  services: [
+    {
+      title: "Desenvolvimento Web",
+      description:
+        "Criação de sites e aplicações web personalizadas para atender às necessidades do seu negócio.",
+      icon: <Globe className="w-6 h-6" />,
+    },
+    {
+      title: "Consultoria",
+      description:
+        "Criação de sites e aplicações web personalizadas para atender às necessidades do seu negócio.",
+      icon: <Headset className="w-6 h-6" />,
+    },
+    {
+      title: "Desenvolvimento Web",
+      description:
+        "Criação de sites e aplicações web personalizadas para atender às necessidades do seu negócio.",
+      icon: <NotebookIcon className="w-6 h-6" />,
+    },
+    {
+      title: "Desenvolvimento Web",
+      description:
+        "Criação de sites e aplicações web personalizadas para atender às necessidades do seu negócio.",
+      icon: <NotebookIcon className="w-6 h-6" />,
+    },
+    {
+      title: "Desenvolvimento Web",
+      description:
+        "Criação de sites e aplicações web personalizadas para atender às necessidades do seu negócio.",
+      icon: <NotebookIcon className="w-6 h-6" />,
+    },
+    {
+      title: "Desenvolvimento Web",
+      description:
+        "Criação de sites e aplicações web personalizadas para atender às necessidades do seu negócio.",
+      icon: <NotebookIcon className="w-6 h-6" />,
     },
   ],
 };

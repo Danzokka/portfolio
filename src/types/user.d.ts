@@ -57,6 +57,12 @@ type Project = {
   }[];
 };
 
+export type Service = {
+  title: string;
+  description: string;
+  icon: JSX.Element;
+}
+
 type User = {
   name: string;
   initials: string;
@@ -71,4 +77,5 @@ type User = {
   work: Work[];
   education: Education[];
   projects: Project[];
+  services: Service[];
 };

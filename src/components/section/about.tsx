@@ -42,7 +42,7 @@ const About = () => {
       <div className="min-h-screen h-full w-full grid grid-cols-2 mt-8">
         <div className="flex flex-col justify-center items-center p-8">
           <h2 className="text-4xl font-bold mb-4">About the Rafaeel</h2>
-          <p className="text-lg text-center max-w-md">
+          <p className="text-lg text-center max-w-md mb-4">
             Our team is composed of passionate professionals dedicated to
             delivering the best solutions for our clients. Get to know the
             people behind the projects.
@@ -59,7 +59,7 @@ const About = () => {
             alt="About the Team"
             width={800}
             height={600}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
           />
         </div>
       </div>
