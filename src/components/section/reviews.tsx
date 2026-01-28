@@ -62,14 +62,14 @@ const Reviews = () => {
           <ReviewCard />
           <ReviewCard />
         </div>
-        <div>
+        <div className="w-full">
           {/* Metrics */}
-          <div className="flex justify-around mt-12">
+          <div className="flex justify-around mt-12 item-center gap-4">
             <div className="text-center">
               <h3 className="text-4xl font-bold">150+</h3>
               <p className="text-lg">Projects Completed</p>
             </div>
-            <Separator orientation="vertical" className=""/>
+            <Separator orientation="vertical"/>
             <div className="text-center">
               <h3 className="text-4xl font-bold">100%</h3>
               <p className="text-lg">Client Satisfaction</p>

@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useState } from "react";
 import type { ReactNode } from "react";
 import Markdown from "react-markdown";
+import { ShineBorder } from "./ui/shine-border";
 
 function ProjectImage({ src, alt }: { src: string; alt: string }) {
   const [imageError, setImageError] = useState(false);
@@ -59,11 +60,12 @@ export function ProjectCard({
   return (
     <div
       className={cn(
-        "flex flex-col h-full border border-border rounded-xl overflow-hidden hover:ring-2 cursor-pointer hover:ring-muted transition-all duration-200",
-        className
+        "flex flex-col h-full relative rounded-xl overflow-hidden hover:ring-2 cursor-pointer hover:ring-muted transition-all duration-200",
+        className,
       )}
     >
-      <div className="relative shrink-0">
+      <ShineBorder shineColor="white" borderWidth={2} duration={30}/>
+      <div className="shrink-0">
         <Link
           href={href || "#"}
           target="_blank"

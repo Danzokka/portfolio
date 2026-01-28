@@ -5,6 +5,7 @@ import { Badge } from "../ui/badge";
 import { DATA } from "@/data/resume";
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 import { Service } from "@/types/user";
+import { ShineBorder } from "../ui/shine-border";
 
 const ServiceList = () => {
   return (
@@ -25,7 +26,7 @@ const ServiceList = () => {
 
 const ServiceCard = ({ service }: { service: Service }) => {
   return (
-    <Card>
+    <Card className="bg-transparent border-none">
       <CardHeader className="-mb-4">
         <CardTitle>
           <div className="flex items-center gap-3 py-2 w-full">

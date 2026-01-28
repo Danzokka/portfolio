@@ -1,8 +1,10 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
+import ShiningButton from "./ui/shining-button";
 
 const Logo = ({ className }: { className?: string }) => (
   <Image
@@ -15,6 +17,23 @@ const Logo = ({ className }: { className?: string }) => (
 );
 
 const Header = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const handleScroll = () => {
+    if (window.scrollY > 0) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const navLinks = [
     { name: "Home", href: "#" },
     { name: "Projects", href: "#projects" },
@@ -24,16 +43,16 @@ const Header = () => {
   ];
 
   return (
-    <header className="w-full">
-      <nav className="w-full px-4 lg:px-6 py-2.5 ">
+    <header
+      className={`fixed top-0 left-0 w-full z-50 transition-bg ${isScrolled ? "bg-black border-b" : "bg-transparent"}`}
+    >
+      <nav className="w-full max-w-screen-2xl mx-auto px-4 lg:px-6 py-2.5">
         <div className="flex flex-wrap justify-between items-center">
           <Link href="/" className="flex items-center">
             <Logo className="" />
           </Link>
           <div className="flex items-center lg:order-2">
-            <Button asChild>
-              <Link href="#">Contact Me</Link>
-            </Button>
+            <ShiningButton href="#">Contact Me</ShiningButton>
             <button
               data-collapse-toggle="mobile-menu-2"
               type="button"
@@ -76,11 +95,7 @@ const Header = () => {
               {navLinks.map((link) => (
                 <li key={link.name}>
                   <Button variant="ghost" asChild>
-                    <Link
-                      href={link.href}
-                    >
-                      {link.name}
-                    </Link>
+                    <Link href={link.href}>{link.name}</Link>
                   </Button>
                 </li>
               ))}
