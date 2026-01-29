@@ -6,7 +6,7 @@ import Image from "next/image";
 import BlurSeparator from "../ui/blur-separator";
 import { H2, Lead } from "../ui/typography";
 import { BlurFade } from "../ui/blur-fade";
-import { DELAY_TIME } from "@/data/config";
+import { DELAY_TIME, DELAY_TIME_MULTIPLIER } from "@/data/config";
 
 const Skills = () => {
   return (
@@ -15,7 +15,7 @@ const Skills = () => {
       {DATA.skills.map((skill, index) => (
         <BlurFade
           key={skill.name}
-          delay={DELAY_TIME + (index + 4) * 0.5}
+          delay={DELAY_TIME + (index + 4) * DELAY_TIME_MULTIPLIER}
           className=""
         >
           <Badge key={skill.name} variant={"default"}>
@@ -34,7 +34,7 @@ const Works = () => {
       {DATA.work.map((work, index) => (
         <BlurFade
           key={work.company}
-          delay={DELAY_TIME + (index + DATA.skills.length + 5) * 0.5}
+          delay={DELAY_TIME + (index + DATA.skills.length + 5) * DELAY_TIME_MULTIPLIER}
           className=""
         >
           <div key={work.company}>
@@ -58,22 +58,22 @@ const About = () => {
       <BlurSeparator title="Sobre Mim" />
       <div className="min-h-screen h-full w-full grid grid-cols-2 mt-8">
         <div className="flex flex-col justify-center items-center p-8">
-          <BlurFade delay={DELAY_TIME + 1 * 0.5} className="" inView>
+          <BlurFade delay={DELAY_TIME + 1 * DELAY_TIME_MULTIPLIER} className="" inView>
             <H2>About the Rafael</H2>
           </BlurFade>
-          <BlurFade delay={DELAY_TIME + 2 * 0.5} className="" inView>
+          <BlurFade delay={DELAY_TIME + 2 * DELAY_TIME_MULTIPLIER} className="" inView>
             <Lead>
               Our team is composed of passionate professionals dedicated to
               delivering the best solutions for our clients. Get to know the
               people behind the projects.
             </Lead>
           </BlurFade>
-          <BlurFade delay={DELAY_TIME + 3 * 0.5} className="w-full" inView>
+          <BlurFade delay={DELAY_TIME + 3 * DELAY_TIME_MULTIPLIER} className="w-full" inView>
             <Separator />
           </BlurFade>
           <Skills />
           <BlurFade
-            delay={DELAY_TIME + (DATA.skills.length + 4) * 0.5}
+            delay={DELAY_TIME + (DATA.skills.length + 4) * DELAY_TIME_MULTIPLIER}
             className="w-full"
             inView
           >
@@ -84,7 +84,7 @@ const About = () => {
         <div className="w-full">
           {/* Image */}
           <BlurFade
-            delay={DELAY_TIME + 1 * 0.5}
+            delay={DELAY_TIME + 1 * DELAY_TIME_MULTIPLIER}
             className="w-full h-full"
             inView
           >

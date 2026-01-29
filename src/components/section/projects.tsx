@@ -2,7 +2,7 @@ import { BlurFade } from "../ui/blur-fade";
 import { ProjectCard } from "@/components/project-card";
 import { DATA } from "@/data/resume";
 import BlurSeparator from "../ui/blur-separator";
-import { DELAY_TIME } from "@/data/config";
+import { DELAY_TIME, DELAY_TIME_MULTIPLIER } from "@/data/config";
 import { H2, Lead } from "../ui/typography";
 
 export default function Projects() {
@@ -10,14 +10,14 @@ export default function Projects() {
     <section id="projects">
       <div className="flex min-h-screen h-full flex-col gap-y-8">
         <div className="flex flex-col gap-y-4 items-center justify-center">
-          <BlurFade delay={DELAY_TIME + 1 * 0.5} className="" inView>
+          <BlurFade delay={DELAY_TIME + 1 * DELAY_TIME_MULTIPLIER} className="" inView>
             <BlurSeparator title="Meus Projetos" />
           </BlurFade>
           <div className="flex flex-col gap-y-3 items-center justify-center">
-            <BlurFade delay={DELAY_TIME + 1 * 0.5} className="" inView>
+            <BlurFade delay={DELAY_TIME + 1 * DELAY_TIME_MULTIPLIER} className="" inView>
               <H2>Veja os meus últimos trabalhos</H2>
             </BlurFade>
-            <BlurFade delay={DELAY_TIME + 2 * 0.5} className="" inView>
+            <BlurFade delay={DELAY_TIME + 2 * DELAY_TIME_MULTIPLIER} className="" inView>
               <Lead>
                 Já trabalhei em uma variedade de projetos, desde sites simples
                 até aplicações web complexas. Aqui estão alguns dos meus
@@ -30,7 +30,7 @@ export default function Projects() {
           {DATA.projects.map((project, id) => (
             <BlurFade
               key={project.title}
-              delay={DELAY_TIME + (id + 3) * 0.5}
+              delay={DELAY_TIME + (id + 3) * DELAY_TIME_MULTIPLIER}
               className="h-full"
               inView
             >

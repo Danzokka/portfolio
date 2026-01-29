@@ -3,7 +3,7 @@ import BlurSeparator from "../ui/blur-separator";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { Separator } from "../ui/separator";
 import { BlurFade } from "../ui/blur-fade";
-import { DELAY_TIME } from "@/data/config";
+import { DELAY_TIME, DELAY_TIME_MULTIPLIER } from "@/data/config";
 import { H2, H3, H4, Lead, P } from "../ui/typography";
 import { DATA } from "@/data/resume";
 
@@ -39,14 +39,14 @@ const Reviews = () => {
   return (
     <section id="reviews">
       <div className="w-full min-h-screen h-full">
-        <BlurFade delay={DELAY_TIME + 0 * 0.5} className="" inView>
+        <BlurFade delay={DELAY_TIME + 0 * DELAY_TIME_MULTIPLIER} className="" inView>
           <BlurSeparator title="Reviews" />
         </BlurFade>
         {/* Reviews Content Placeholder + Image*/}
         <div className="w-full grid grid-cols-2 gap-4 mt-8">
           {/* Image Placeholder */}
           <div className="w-full">
-            <BlurFade delay={DELAY_TIME + 1 * 0.5} className="" inView>
+            <BlurFade delay={DELAY_TIME + 1 * DELAY_TIME_MULTIPLIER} className="" inView>
               {/* Image */}
               <img
                 src={"/placeholder.png"}
@@ -58,12 +58,12 @@ const Reviews = () => {
           {/* Text Placeholder */}
           <div className="p-8">
             {/* Text */}
-            <BlurFade delay={DELAY_TIME + 1 * 0.5} className="" inView>
+            <BlurFade delay={DELAY_TIME + 1 * DELAY_TIME_MULTIPLIER} className="" inView>
               <H2>
                 Client <br /> Reviews
               </H2>
             </BlurFade>
-            <BlurFade delay={DELAY_TIME + 2 * 0.5} className="mt-4" inView>
+            <BlurFade delay={DELAY_TIME + 2 * DELAY_TIME_MULTIPLIER} className="mt-4" inView>
               <Lead>
                 Real feedback from clients who trusted my design expertise to
                 elevate their brands successfully.
@@ -77,7 +77,7 @@ const Reviews = () => {
             DATA.reviews.map((review, index) => (
               <BlurFade
                 key={index}
-                delay={DELAY_TIME + (index + 4) * 0.5}
+                delay={DELAY_TIME + (index + 4) * DELAY_TIME_MULTIPLIER}
                 className=""
                 inView
               >
@@ -92,7 +92,7 @@ const Reviews = () => {
             {DATA.metrics.map((metric, index) => (
               <BlurFade
                 key={index}
-                delay={DELAY_TIME + (DATA.reviews.length + 4 + index) * 0.5}
+                delay={DELAY_TIME + (DATA.reviews.length + 4 + index) * DELAY_TIME_MULTIPLIER}
                 className=""
                 inView
               >
