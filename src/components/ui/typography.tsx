@@ -30,10 +30,24 @@ export function H4({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function Lead({ children, align = "left" }: { children: React.ReactNode ; align?: string }) {
-  return <p className={`text-lg text-muted-foreground text-${align}`}>{children}</p>;
+export function Lead({
+  children,
+  align = "left",
+}: {
+  children: React.ReactNode;
+  align?: string;
+}) {
+  return <p className={`text-lg text-gray-300 text-${align}`}>{children}</p>;
 }
 
 export function P({ children }: { children: React.ReactNode }) {
   return <p className="leading-7 not-first:mt-6">{children}</p>;
+}
+
+export function List({ children }: { children: React.ReactNode }) {
+  return <ul className="my-6 ml-6 list-disc [&>li]:mt-2">{children}</ul>;
+}
+
+export function Muted({ children }: { children: React.ReactNode }) {
+  return <span className="text-sm text-muted-foreground">{children}</span>;
 }

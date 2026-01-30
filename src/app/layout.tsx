@@ -3,6 +3,7 @@ import { IBM_Plex_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import { LanguageProvider } from "@/contexts/language-context";
 
 const ibmPlexSans = IBM_Plex_Sans({
   variable: "--font-ibm-plex-sans",
@@ -29,11 +30,13 @@ export default function RootLayout({
       <body
         className={`${ibmPlexSans.variable} ${geistMono.variable} antialiased dark h-screen flex flex-col justify-between max-w-screen-2xl items-center w-full mx-auto bg-black`}
       >
-        <Header />
-        <main className="flex items-center w-full justify-center flex-col gap-4">
-          {children}
-        </main>
-        <Footer />
+        <LanguageProvider>
+          <Header />
+          <main className="flex items-center w-full justify-center flex-col gap-4">
+            {children}
+          </main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

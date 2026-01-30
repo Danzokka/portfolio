@@ -76,6 +76,39 @@ type Metric = {
   label: string;
 }
 
+type Navbar = {
+  home: string;
+  projects: string;
+  about: string;
+  services: string;
+  contact: string;
+}
+
+type Hero = {
+  title: string;
+  description: string;
+  aboutMe: string;
+  seeProjects: string;
+}
+
+type SectionTitles = {
+  projects: string;
+  projectsSubtitle: string;
+  projectsDescription: string;
+  about: string;
+  aboutSubtitle: string;
+  aboutDescription: string;
+  services: string;
+  servicesSubtitle: string;
+  servicesDescription: string;
+  reviews: string;
+  reviewsSubtitle: string;
+  reviewsDescription: string;
+  footerSubtitle: string;
+  getStarted: string;
+  available: string;
+}
+
 type User = {
   name: string;
   initials: string;
@@ -93,4 +126,7 @@ type User = {
   services: Service[];
   reviews: Review[];
   metrics: Metric[];
+  navbar: Navbar;
+  hero: Hero;
+  sectionTitles: SectionTitles;
 };

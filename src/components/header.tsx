@@ -5,6 +5,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import ShiningButton from "./ui/shining-button";
+import { useLanguage } from "@/contexts/language-context";
 
 const Logo = ({ className }: { className?: string }) => (
   <Image
@@ -18,6 +19,7 @@ const Logo = ({ className }: { className?: string }) => (
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { language, setLanguage } = useLanguage();
 
   const handleScroll = () => {
     if (window.scrollY > 0) {
@@ -35,11 +37,11 @@ const Header = () => {
   }, []);
 
   const navLinks = [
-    { name: "Home", href: "#" },
-    { name: "Projects", href: "#projects" },
-    { name: "About", href: "#about" },
-    { name: "Services", href: "#services" },
-    { name: "Contact", href: "#contact" },
+    { name: language === "pt" ? "Início" : "Home", href: "#" },
+    { name: language === "pt" ? "Projetos" : "Projects", href: "#projects" },
+    { name: language === "pt" ? "Sobre" : "About", href: "#about" },
+    { name: language === "pt" ? "Serviços" : "Services", href: "#services" },
+    { name: language === "pt" ? "Contato" : "Contact", href: "#contact" },
   ];
 
   return (
@@ -51,8 +53,17 @@ const Header = () => {
           <Link href="/" className="flex items-center">
             <Logo className="" />
           </Link>
-          <div className="flex items-center lg:order-2">
-            <ShiningButton href="#">Contact Me</ShiningButton>
+          <div className="flex items-center lg:order-2 gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setLanguage(language === "pt" ? "en" : "pt")}
+            >
+              {language === "pt" ? "EN" : "PT"}
+            </Button>
+            <ShiningButton href="#">
+              {language === "pt" ? "Contato" : "Contact Me"}
+            </ShiningButton>
             <button
               data-collapse-toggle="mobile-menu-2"
               type="button"

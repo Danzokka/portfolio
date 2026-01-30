@@ -1,11 +1,13 @@
+"use client";
 import React from "react";
 import BlurSeparator from "../ui/blur-separator";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { Separator } from "../ui/separator";
 import { BlurFade } from "../ui/blur-fade";
 import { DELAY_TIME, DELAY_TIME_MULTIPLIER } from "@/data/config";
-import { H2, H3, H4, Lead, P } from "../ui/typography";
-import { DATA } from "@/data/resume";
+import { H2, H3, P, Lead } from "../ui/typography";
+import { useLanguage } from "@/contexts/language-context";
+import { DATA } from "@/data/resume"; // Kept for type inference if needed, but using hook for data
 
 const Metric = ({ value, label }: { value: string; label: string }) => {
   return (
@@ -36,11 +38,12 @@ const ReviewCard = ({ review }: { review: (typeof DATA.reviews)[0] }) => {
 };
 
 const Reviews = () => {
+  const { data } = useLanguage();
   return (
     <section id="reviews">
       <div className="w-full min-h-screen h-full">
         <BlurFade delay={DELAY_TIME + 0 * DELAY_TIME_MULTIPLIER} className="" inView>
-          <BlurSeparator title="Reviews" />
+          <BlurSeparator title={data.sectionTitles.reviews} />
         </BlurFade>
         {/* Reviews Content Placeholder + Image*/}
         <div className="w-full grid grid-cols-2 gap-4 mt-8">
@@ -60,13 +63,12 @@ const Reviews = () => {
             {/* Text */}
             <BlurFade delay={DELAY_TIME + 1 * DELAY_TIME_MULTIPLIER} className="" inView>
               <H2>
-                Client <br /> Reviews
+                {data.sectionTitles.reviewsSubtitle}
               </H2>
             </BlurFade>
             <BlurFade delay={DELAY_TIME + 2 * DELAY_TIME_MULTIPLIER} className="mt-4" inView>
               <Lead>
-                Real feedback from clients who trusted my design expertise to
-                elevate their brands successfully.
+                {data.sectionTitles.reviewsDescription}
               </Lead>
             </BlurFade>
           </div>
@@ -74,7 +76,7 @@ const Reviews = () => {
         <div className="w-full grid grid-cols-3 gap-4 mt-8">
           {
             /* Review Cards */
-            DATA.reviews.map((review, index) => (
+            data.reviews.map((review, index) => (
               <BlurFade
                 key={index}
                 delay={DELAY_TIME + (index + 4) * DELAY_TIME_MULTIPLIER}
@@ -89,10 +91,10 @@ const Reviews = () => {
         <div className="w-full">
           {/* Metrics */}
           <div className="flex justify-around mt-12 item-center gap-4">
-            {DATA.metrics.map((metric, index) => (
+            {data.metrics.map((metric, index) => (
               <BlurFade
                 key={index}
-                delay={DELAY_TIME + (DATA.reviews.length + 4 + index) * DELAY_TIME_MULTIPLIER}
+                delay={DELAY_TIME + (data.reviews.length + 4 + index) * DELAY_TIME_MULTIPLIER}
                 className=""
                 inView
               >

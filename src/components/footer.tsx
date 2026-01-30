@@ -1,15 +1,17 @@
+"use client";
 import { Dot } from "lucide-react";
 import React from "react";
 import { ShineBorder } from "./ui/shine-border";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { DATA } from "@/data/resume";
 import { DELAY_TIME, DELAY_TIME_MULTIPLIER } from "@/data/config";
 import { BlurFade } from "./ui/blur-fade";
 import { H2 } from "./ui/typography";
 import ShiningButton from "./ui/shining-button";
+import { useLanguage } from "@/contexts/language-context";
 
 const Footer = () => {
+  const { data } = useLanguage();
   return (
     <footer className="w-full">
       <div className="w-full px-4 pt-16 pb-8 sm:px-6 lg:px-8 lg:pt-24">
@@ -18,7 +20,7 @@ const Footer = () => {
             <span className="flex items-center relative p-2 pr-4 rounded-full">
               <ShineBorder shineColor="white" borderWidth={2} />
               <Dot className="size-8" />
-              Available for work
+              {data.sectionTitles.available}
             </span>
           </div>
         </BlurFade>
@@ -31,7 +33,7 @@ const Footer = () => {
               href="#"
               className="mt-8 px-6 py-3 text-lg font-medium"
             >
-              Get Started
+              {data.sectionTitles.getStarted}
             </ShiningButton>
           </BlurFade>
 
@@ -39,7 +41,7 @@ const Footer = () => {
             {/* Social Media Icons */}
             {
               /* Placeholder for social media icons */
-              DATA.contact.social.map((social, index) => (
+              data.contact.social.map((social, index) => (
                 <BlurFade
                   delay={DELAY_TIME + (3 + index) * DELAY_TIME_MULTIPLIER}
                   className=""
