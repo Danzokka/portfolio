@@ -8,7 +8,7 @@ export function H1({ children }: { children: React.ReactNode }) {
 
 export function H2({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight text-balance">
+    <h2 className="scroll-m-20 text-6xl font-semibold tracking-tight text-balance mb-6">
       {children}
     </h2>
   );
@@ -16,7 +16,7 @@ export function H2({ children }: { children: React.ReactNode }) {
 
 export function H3({ children }: { children: React.ReactNode }) {
   return (
-    <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight text-balance">
+    <h3 className="scroll-m-20 text-4xl font-semibold tracking-tight text-balance mb-4">
       {children}
     </h3>
   );

@@ -27,7 +27,7 @@ export default function Projects() {
             </BlurFade>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 max-w-300 mx-auto auto-rows-fr">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 w-full lg:gap-6">
           {data.projects.map((project, id) => (
             <BlurFade
               key={project.title}

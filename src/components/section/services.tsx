@@ -62,7 +62,7 @@ const Services = () => {
         {/* Services + Image Placeholder */}
         <div className="w-full grid grid-cols-2 gap-4 mt-8">
           {/* Text Placeholder */}
-          <div className="flex flex-col justify-center items-start p-8">
+          <div className="flex flex-col justify-center items-start">
             <BlurFade delay={DELAY_TIME + 1 * DELAY_TIME_MULTIPLIER} className="" inView>
               <H2>{data.sectionTitles.servicesSubtitle}</H2>
             </BlurFade>

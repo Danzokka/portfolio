@@ -795,7 +795,7 @@ export const DATA_PT: User = {
     projectsDescription:
       "Já trabalhei em uma variedade de projetos, desde sites simples até aplicações web complexas. Aqui estão alguns dos meus favoritos.",
     about: "Sobre Mim",
-    aboutSubtitle: "Sobre o Rafael",
+    aboutSubtitle: "Sobre Rafael",
     aboutDescription:
       "Nossa equipe é composta por profissionais apaixonados dedicados a entregar as melhores soluções para nossos clientes. Conheça as pessoas por trás dos projetos.",
     services: "Meus Serviços",

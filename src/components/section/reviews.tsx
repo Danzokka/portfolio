@@ -46,7 +46,7 @@ const Reviews = () => {
           <BlurSeparator title={data.sectionTitles.reviews} />
         </BlurFade>
         {/* Reviews Content Placeholder + Image*/}
-        <div className="w-full grid grid-cols-2 gap-4 mt-8">
+        <div className="w-full grid grid-cols-2 gap-8 mt-8">
           {/* Image Placeholder */}
           <div className="w-full">
             <BlurFade delay={DELAY_TIME + 1 * DELAY_TIME_MULTIPLIER} className="" inView>
@@ -59,7 +59,7 @@ const Reviews = () => {
             </BlurFade>
           </div>
           {/* Text Placeholder */}
-          <div className="p-8">
+          <div className="flex flex-col">
             {/* Text */}
             <BlurFade delay={DELAY_TIME + 1 * DELAY_TIME_MULTIPLIER} className="" inView>
               <H2>

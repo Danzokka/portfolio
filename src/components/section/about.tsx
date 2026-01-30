@@ -45,7 +45,7 @@ const Works = () => {
         >
           <div key={work.company}>
             <H3>
-              {work.position} at {work.company}
+              {work.position} @ {work.company}
             </H3>
             <Muted>
               {work.location} | {work.startDate} - {work.endDate}
@@ -84,10 +84,10 @@ const About = () => {
       <BlurSeparator title={data.sectionTitles.about} />
       <div className="min-h-screen h-full w-full mt-8">
         <div className="grid grid-cols-2">
-          <div className="flex flex-col justify-center items-center">
+          <div className="flex flex-col items-center">
             <BlurFade
               delay={DELAY_TIME + 1 * DELAY_TIME_MULTIPLIER}
-              className=""
+              className="w-full"
               inView
             >
               <H2>{data.sectionTitles.aboutSubtitle}</H2>
