@@ -84,7 +84,7 @@ const About = () => {
       <BlurSeparator title={data.sectionTitles.about} />
       <div className="min-h-screen h-full w-full mt-8">
         <div className="grid grid-cols-2">
-          <div className="flex flex-col justify-center items-center p-8">
+          <div className="flex flex-col justify-center items-center">
             <BlurFade
               delay={DELAY_TIME + 1 * DELAY_TIME_MULTIPLIER}
               className=""

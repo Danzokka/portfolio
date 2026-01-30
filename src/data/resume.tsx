@@ -104,6 +104,34 @@ const COMMON_DATA = {
       name: "MongoDB",
       icon: <StackIcon name="mongodb" className="size-4" />,
     },
+    {
+      name: "React",
+      icon: <StackIcon name="react" className="size-4" />,
+    },
+    {
+      name: "Python",
+      icon: <StackIcon name="python" className="size-4" />,
+    },
+    {
+      name: "PHP",
+      icon: <StackIcon name="php" className="size-4" />,
+    },
+    {
+      name: "N8N",
+      icon: <StackIcon name="n8n" className="size-4" />,
+    },
+    {
+      name: "Moodle",
+      icon: <StackIcon name="moodle" className="size-4" />,
+    },
+    {
+      name: "Jenkins",
+      icon: <StackIcon name="jenkins" className="size-4" variant="dark" />,
+    },
+    {
+      name: "GitHub Actions",
+      icon: <StackIcon name="githubactions" className="size-4" variant="dark" />,
+    }
   ],
 };
 
@@ -449,7 +477,7 @@ export const DATA_PT: User = {
         {
           name: "AWS",
           icon: <StackIcon name="aws" className="size-4" variant="dark" />,
-        }
+        },
       ],
     },
   ],
@@ -466,7 +494,8 @@ export const DATA_PT: User = {
   projects: [
     {
       title: "Coink",
-      href: "https://github.com/RS-Devworks/coink",
+      href: "https://github.com/Danzokka/coink",
+      image: "/projects/coink.png",
       dates: "2025-2026",
       active: true,
       description:
@@ -500,12 +529,13 @@ export const DATA_PT: User = {
       links: [],
     },
     {
-      title: "Marcador de Consultas",
-      href: "https://github.com/Danzokka/marcador-de-consultas",
+      title: "TCC-Estufa",
+      href: "https://github.com/Danzokka/tcc-estufa",
+      image: "/projects/estufa.jpg",
       dates: "2024",
       active: true,
       description:
-        "Sistema de agendamento de consultas desenvolvido com Next.js, NestJS e Prisma, utilizando ShadcnUI para componentes visuais.",
+        "Projeto de TCC sobre automação e monitoramento de estufas utilizando IA e tecnologias modernas.",
       technologies: [
         {
           name: "Next.js",
@@ -531,18 +561,35 @@ export const DATA_PT: User = {
           name: "Tailwind CSS",
           icon: <StackIcon name="tailwindcss" className="size-4" />,
         },
+        {
+          name: "TensorFlow",
+          icon: <StackIcon name="tensorflow" className="size-4" />,
+        },
+        {
+          name: "Python",
+          icon: <StackIcon name="python" className="size-4" />,
+        },
+        {
+          name: "Docker",
+          icon: <StackIcon name="docker" className="size-4" />,
+        },
+        {
+          name: "ESP32",
+          icon: <StackIcon name="esp32" className="size-4" />,
+        },
       ],
       links: [
         {
           icon: <StackIcon name="github" className="size-4" variant="dark" />,
           type: "Código",
-          href: "https://github.com/Danzokka/marcador-de-consultas",
+          href: "https://github.com/Danzokka/tcc-estufa",
         },
       ],
     },
     {
       title: "Acessa",
       href: "https://acessa.edukativa.com.br",
+      image: "/projects/acessa.png",
       dates: "2025-2026",
       active: true,
       description:
@@ -584,6 +631,7 @@ export const DATA_PT: User = {
     {
       title: "Stack de Observabilidade",
       href: "https://homepage.edukativa.com.br",
+      image: "/projects/observability.png",
       dates: "2025-2026",
       active: true,
       description:
@@ -617,6 +665,7 @@ export const DATA_PT: User = {
     {
       title: "Sistema Gestão Acadêmica",
       href: "https://app.cognusplay.com.br",
+      image: "/projects/painel.png",
       dates: "2023-2026",
       active: true,
       description:
@@ -658,6 +707,7 @@ export const DATA_PT: User = {
     {
       title: "Simulador Infraero",
       href: "https://simulador.edukativa.com.br",
+      image: "/projects/simulador.png",
       dates: "2025",
       active: true,
       description:
