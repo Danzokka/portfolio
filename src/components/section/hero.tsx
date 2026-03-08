@@ -1,17 +1,30 @@
 "use client";
-import VideoBg from "../ui/video-bg";
+import dynamic from "next/dynamic";
 import { H1, Lead } from "../ui/typography";
 import ShiningButton from "../ui/shining-button";
 import { BlurFade } from "../ui/blur-fade";
 import { DELAY_TIME, DELAY_TIME_MULTIPLIER } from "@/data/config";
 import { useLanguage } from "@/contexts/language-context";
+import { useIsMobile } from "@/hooks/use-is-mobile";
+
+const HeroScene = dynamic(() => import("@/components/three/hero-scene"), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 bg-gradient-to-b from-purple-950 via-purple-900 to-black" />
+  ),
+});
+
+const MobileFallback = () => (
+  <div className="absolute inset-0 bg-gradient-to-b from-purple-950 via-purple-900 to-black animate-pulse" />
+);
 
 const Hero = () => {
   const { data } = useLanguage();
+  const isMobile = useIsMobile();
 
   return (
-    <section id="hero" className="relative overflow-hidden h-screen w-screen">
-      <VideoBg source="/videos/waves.mp4" />
+    <section id="hero" className="relative overflow-hidden h-screen w-screen bg-black">
+      {isMobile ? <MobileFallback /> : <HeroScene />}
       <div className="flex flex-col items-center justify-center h-full relative z-10">
         <BlurFade delay={DELAY_TIME + 0 * DELAY_TIME_MULTIPLIER} className="">
           <H1>{data.hero.title}</H1>
