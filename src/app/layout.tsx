@@ -4,6 +4,12 @@ import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { LanguageProvider } from "@/contexts/language-context";
+import dynamic from "next/dynamic";
+
+const ParticleBackground = dynamic(
+  () => import("@/components/three/particle-background"),
+  { ssr: false }
+);
 
 const ibmPlexSans = IBM_Plex_Sans({
   variable: "--font-ibm-plex-sans",
@@ -30,6 +36,7 @@ export default function RootLayout({
       <body
         className={`${ibmPlexSans.variable} ${geistMono.variable} antialiased dark h-screen flex flex-col justify-between max-w-screen-2xl items-center w-full mx-auto bg-black`}
       >
+        <ParticleBackground />
         <LanguageProvider>
           <Header />
           <main className="flex items-center w-full justify-center flex-col gap-4">
