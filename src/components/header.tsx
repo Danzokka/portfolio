@@ -54,13 +54,18 @@ const Header = () => {
             <Logo className="" />
           </Link>
           <div className="flex items-center lg:order-2 gap-2">
-            <Button
-              variant="outline"
-              size="sm"
+            <button
               onClick={() => setLanguage(language === "pt" ? "en" : "pt")}
+              className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-purple-500/40 bg-purple-950/30 hover:bg-purple-900/40 hover:border-purple-400/60 transition-all duration-300 text-sm font-medium text-purple-200 hover:text-white backdrop-blur-sm"
             >
-              {language === "pt" ? "EN" : "PT"}
-            </Button>
+              <span className={`transition-all duration-200 ${language === "pt" ? "opacity-100 scale-100" : "opacity-50 scale-90"}`}>
+                PT
+              </span>
+              <span className="text-purple-400/60">/</span>
+              <span className={`transition-all duration-200 ${language === "en" ? "opacity-100 scale-100" : "opacity-50 scale-90"}`}>
+                EN
+              </span>
+            </button>
             <ShiningButton href="#">
               {language === "pt" ? "Contato" : "Contact Me"}
             </ShiningButton>
