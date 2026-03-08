@@ -4,12 +4,8 @@ import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { LanguageProvider } from "@/contexts/language-context";
-import dynamic from "next/dynamic";
-
-const ParticleBackground = dynamic(
-  () => import("@/components/three/particle-background"),
-  { ssr: false }
-);
+import ParticleBackground from "@/components/three/particle-background-lazy";
+import LanguageTransition from "@/components/language-transition";
 
 const ibmPlexSans = IBM_Plex_Sans({
   variable: "--font-ibm-plex-sans",
@@ -38,6 +34,7 @@ export default function RootLayout({
       >
         <ParticleBackground />
         <LanguageProvider>
+          <LanguageTransition />
           <Header />
           <main className="flex items-center w-full justify-center flex-col gap-4">
             {children}

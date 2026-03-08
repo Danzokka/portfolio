@@ -54,16 +54,37 @@ const Header = () => {
             <Logo className="" />
           </Link>
           <div className="flex items-center lg:order-2 gap-2">
+            {/* Language flag toggle */}
             <button
               onClick={() => setLanguage(language === "pt" ? "en" : "pt")}
-              className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-purple-500/40 bg-purple-950/30 hover:bg-purple-900/40 hover:border-purple-400/60 transition-all duration-300 text-sm font-medium text-purple-200 hover:text-white backdrop-blur-sm"
+              title={
+                language === "pt" ? "Switch to English" : "Mudar para Português"
+              }
+              className="relative w-10 h-10 rounded-full border border-purple-500/40 bg-purple-950/30 hover:bg-purple-900/40 hover:border-purple-400/60 backdrop-blur-sm transition-all duration-300 overflow-hidden group"
+              style={{ perspective: "600px" }}
             >
-              <span className={`transition-all duration-200 ${language === "pt" ? "opacity-100 scale-100" : "opacity-50 scale-90"}`}>
-                PT
+              {/* Current flag (visible, flips away on hover) */}
+              <span
+                className="absolute inset-0 flex items-center justify-center leading-none transition-all duration-300"
+                style={{ fontSize: "38px" }}
+                style={{
+                  backfaceVisibility: "hidden",
+                  transform: "rotateY(0deg)",
+                }}
+              >
+                <span
+                  className="block transition-all duration-300 group-hover:[transform:rotateY(90deg)] group-hover:opacity-0"
+                  style={{ transformOrigin: "center" }}
+                >
+                  {language === "pt" ? "🇧🇷" : "🇺🇸"}
+                </span>
               </span>
-              <span className="text-purple-400/60">/</span>
-              <span className={`transition-all duration-200 ${language === "en" ? "opacity-100 scale-100" : "opacity-50 scale-90"}`}>
-                EN
+              {/* Target flag (hidden, flips in on hover) */}
+              <span
+                className="absolute inset-0 flex items-center justify-center leading-none opacity-0 scale-75 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100 delay-75"
+                style={{ fontSize: "38px" }}
+              >
+                {language === "pt" ? "🇺🇸" : "🇧🇷"}
               </span>
             </button>
             <ShiningButton href="#">

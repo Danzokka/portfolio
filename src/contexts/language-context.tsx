@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 import { DATA_EN, DATA_PT, DATA as DEFAULT_DATA } from "@/data/resume";
 import { User } from "@/types/user";
 
@@ -10,6 +16,7 @@ interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   data: User;
+  isTransitioning: boolean;
 }
 
 const STORAGE_KEY = "portfolio-language";
@@ -22,11 +29,14 @@ function detectInitialLanguage(): Language {
   return browserLang.startsWith("en") ? "en" : "pt";
 }
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+const LanguageContext = createContext<LanguageContextType | undefined>(
+  undefined,
+);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>("pt");
   const [data, setData] = useState<User>(DEFAULT_DATA);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
     const detected = detectInitialLanguage();
@@ -40,11 +50,22 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }, [language]);
 
   const setLanguage = (lang: Language) => {
-    setLanguageState(lang);
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    // Change language at the midpoint of the flash (160ms)
+    setTimeout(() => {
+      setLanguageState(lang);
+    }, 160);
+    // End transition after fade completes (330ms)
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 330);
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, data }}>
+    <LanguageContext.Provider
+      value={{ language, setLanguage, data, isTransitioning }}
+    >
       {children}
     </LanguageContext.Provider>
   );
