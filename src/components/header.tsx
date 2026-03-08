@@ -60,14 +60,14 @@ const Header = () => {
               title={
                 language === "pt" ? "Switch to English" : "Mudar para Português"
               }
-              className="relative w-10 h-10 rounded-full border border-purple-500/40 bg-purple-950/30 hover:bg-purple-900/40 hover:border-purple-400/60 backdrop-blur-sm transition-all duration-300 overflow-hidden group"
+              className="relative size-10 rounded-full border border-purple-500/40 bg-purple-950/30 hover:bg-purple-900/40 hover:border-purple-400/60 backdrop-blur-sm transition-all duration-300 overflow-hidden group p-0"
               style={{ perspective: "600px" }}
             >
               {/* Current flag (visible, flips away on hover) */}
               <span
                 className="absolute inset-0 flex items-center justify-center leading-none transition-all duration-300"
-                style={{ fontSize: "38px" }}
                 style={{
+                  fontSize: "50px",
                   backfaceVisibility: "hidden",
                   transform: "rotateY(0deg)",
                 }}
