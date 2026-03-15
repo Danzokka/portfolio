@@ -331,7 +331,11 @@ Work timeline (accordion):            ← shadcn Accordion, collapsed by default
 
 Work history (from existing `DATA.work`) is placed here as a shadcn Accordion below each column's related skills (or as a full-width sub-section below all three columns — implementer's choice based on data volume).
 
-**Infra/DevOps column:** `<PipelineBg />` (section 7.2) as `position: absolute inset-0` inside a `relative` container with `overflow: hidden`. Canvas fills 100% width/height of the column container. Column content sits above with `position: relative z-10`.
+**Frontend column:** `<ComponentTreeBg />` (section 7.3) — same `position: absolute inset-0` pattern, `z-0`. Column content `z-10`.
+
+**Backend column:** `<NestConsoleBg />` (section 7.4) — same pattern.
+
+**Infra/DevOps column:** `<PipelineBg />` (section 7.2) — same pattern.
 
 Skills filtered by `skill.category` from `COMMON_DATA.skills`.
 
@@ -414,7 +418,49 @@ Replaces `HeroVaporwave`. Lazy-loaded via `React.lazy` + `Suspense` (fallback: `
 
 **No new dependencies required.** All math done with Three.js built-ins.
 
-### 7.2 PipelineBg (`src/components/three/pipeline-bg.tsx`)
+### 7.3 ComponentTreeBg (`src/components/three/component-tree-bg.tsx`)
+
+New component. Represents a React component tree as atmospheric background for the Frontend column.
+
+**Visual concept:** A tree of nodes from top (root component) branching downward — like a React DevTools component tree. Nodes pulse softly. Active "render" propagates as a wave of brightness top-to-bottom.
+
+**Implementation:**
+- Tree structure: 1 root → 2–3 children → 4–6 grandchildren. ~10–15 nodes total.
+- Nodes: `THREE.SphereGeometry(0.12)`, color `--accent-purple` at low opacity
+- Edges: `THREE.Line` between parent → child
+- Animation: every ~2s, a brightness pulse propagates down the tree (re-render simulation). Nodes briefly increase opacity when "rendering".
+- Layout: tree spread in 2D plane (Z=0), camera faces it straight on
+- Canvas fills parent column, `opacity: 0.08` on materials
+- Static on `prefers-reduced-motion`
+
+---
+
+### 7.4 NestConsoleBg (`src/components/three/nest-console-bg.tsx`)
+
+New component. Simulates a NestJS bootstrap console initializing — as atmospheric background for the Backend column.
+
+**Visual concept:** Not a 3D scene in the traditional sense — instead a `<Canvas>` renders a `THREE.PlaneGeometry` as a "screen" surface, with a scrolling texture of NestJS-style log lines drawn onto it via `THREE.CanvasTexture`. This creates a subtle 3D terminal-on-a-plane effect with slight perspective tilt.
+
+**Log lines content (looping, fictional but realistic):**
+```
+[NestFactory] Starting Nest application...
+[InstanceLoader] AppModule dependencies initialized
+[RoutesResolver] AppController {/}: +2ms
+[RouterExplorer] Mapped {/health, GET}
+[RouterExplorer] Mapped {/api/users, GET}
+[RouterExplorer] Mapped {/api/auth/login, POST}
+[NestApplication] Nest application successfully started
+```
+
+**Implementation:**
+- `THREE.PlaneGeometry` tilted ~15° on X axis (slight perspective)
+- Texture: 2D canvas element updated each frame, drawing monospace text lines in `--accent-cyan` at low opacity, scrolling upward slowly
+- Material: `THREE.MeshBasicMaterial({ map: canvasTexture, transparent: true, opacity: 0.07 })`
+- Text color: `#00D4FF` (accent-cyan) at 60% alpha on transparent canvas
+- New lines appear at bottom and scroll upward, looping continuously
+- Static on `prefers-reduced-motion`
+
+---
 
 New component. CI/CD pipeline visualization as atmospheric background for Infra/DevOps column.
 
@@ -465,7 +511,7 @@ Each step is independently testable before moving to the next.
 | 5 | `Logo.tsx` — new component | `src/components/logo.tsx` |
 | 6 | `Header` — Logo, HyperText nav, mobile drawer | `header.tsx` |
 | 7 | `Hero` — new layout, `HeroNetworkScene` Three.js | `hero.tsx`, `hero-network.tsx` |
-| 8 | `Skills` — new section, `PipelineBg` Three.js, work accordion | `skills.tsx`, `pipeline-bg.tsx` |
+| 8 | `Skills` — new section, 3× Three.js column bgs, work accordion | `skills.tsx`, `component-tree-bg.tsx`, `nest-console-bg.tsx`, `pipeline-bg.tsx` |
 | 9 | `Projects` — refactor with filter tabs | `projects.tsx` |
 | 10 | `Metrics` — new section | `metrics.tsx` |
 | 11 | `Services` — refactor | `services.tsx` |
