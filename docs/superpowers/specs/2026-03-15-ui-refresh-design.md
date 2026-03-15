@@ -129,8 +129,62 @@ Two-column layout inside the panel (stacks on mobile):
 
 **Three.js backgrounds** (existing): keep ComponentTreeBg / NestConsoleBg / PipelineBg at `opacity-[0.08]` absolute behind each panel column. Since the new design is a single panel (not 3 columns), render the background matching the active tab only.
 
+### Skill item design — Terminal window cards (D3)
+
+The right column of the panel shows individual skills as **mini terminal-window cards** in a 2-column grid.
+
+Each card is a `SkillCard` sub-component defined in `skills.tsx`:
+
+```
+┌──────────────────────────────────┐
+│ ● ● ●  filename.ext              │  top bar (bg-[#0d0d0d], border-b border-[#111])
+├──────────────────────────────────┤
+│  🔷  SkillName                   │  icon (text-base) + name (font-mono text-[10px] text-zinc-300)
+│  Short description of how used   │  font-sans text-[9px] text-zinc-600 leading-relaxed
+│  [expert]                        │  badge (bottom-left, font-mono text-[7px])
+└──────────────────────────────────┘
+```
+
+**Filename** is derived from `skill.name`:
+```ts
+// Lowercase, spaces→hyphens, extension from category
+const SKILL_EXT: Record<Skill['category'], string> = {
+  frontend: '.tsx',
+  backend: '.ts',
+  devops: '.sh',
+};
+// e.g. "Tailwind CSS" + frontend → "tailwind-css.tsx"
+const filename = skill.name.toLowerCase().replace(/\s+/g, '-') + SKILL_EXT[skill.category];
+```
+
+**Top bar dots:** three `w-1.5 h-1.5 rounded-full` — `#ff5f57` / `#ffbd2e` / `#28c840` (decorative)
+
+**Badge colors by level** (add a `level: 'expert' | 'advanced' | 'learning'` field to the `Skill` type):
+```ts
+const BADGE: Record<string, string> = {
+  expert:   'bg-[#6C63FF]/15 text-[#a89fff]',
+  advanced: 'bg-[#00D4FF]/10 text-[#00D4FF]',
+  learning: 'bg-[#00FF88]/8  text-[#00FF88]',
+};
+```
+
+**Featured card** (first skill per category, e.g. React+Next.js for frontend): `grid-column: span 2`. Its description can be slightly longer (up to 2 lines). All other cards are single-column.
+
+**Card wrapper:** `bg-[#080808] border border-[#1a1a1a] rounded-md overflow-hidden hover:border-[#6C63FF]/30 transition-colors duration-200 cursor-default`
+
+**Skill descriptions** (short, 1-line for regular cards, 2-line for featured): these are hardcoded per skill in `COMMON_DATA.skills` as a new `description?: string` optional field. They do not need translation — keep them in English. Example:
+```ts
+{ name: 'React', icon: ..., category: 'frontend', level: 'expert',
+  description: 'Components, hooks, context and Server Actions' },
+{ name: 'Next.js', icon: ..., category: 'frontend', level: 'expert',
+  description: 'App Router, SSR, Static Gen, middleware' },
+```
+
+**Data change:** add `level: 'expert' | 'advanced' | 'learning'` and `description?: string` to the `Skill` type in `user.d.ts`, and populate them in `COMMON_DATA.skills` in `resume.tsx`.
+
 ### File: `src/components/section/skills.tsx`
 - Full rewrite; tabs + progress bar + two-column panel
+- Right column: 2-col grid of `SkillCard` mini terminal windows
 - Three.js bg rendered conditionally per active tab with `dynamic()` wrappers (already exist)
 
 ---
@@ -320,8 +374,8 @@ footerResume: "Abrir Currículo",
 
 | File | Action |
 |------|--------|
-| `src/types/user.d.ts` | Export `SkillDescriptions` type; add `skillDescriptions: SkillDescriptions` to `User`; add `footerHeadline`, `footerPitch`, `footerResume` to `SectionTitles`; remove `footerSubtitle` |
-| `src/data/resume.tsx` | Add `skillDescriptions` to **DATA_EN** and **DATA_PT** (language-specific); replace `footerSubtitle` with `footerHeadline`/`footerPitch`/`footerResume` in both. Do NOT touch COMMON_DATA for these fields. |
+| `src/types/user.d.ts` | Export `SkillDescriptions` type; add `skillDescriptions: SkillDescriptions` to `User`; add `footerHeadline`, `footerPitch`, `footerResume` to `SectionTitles`; remove `footerSubtitle`; add `level` and `description?` to `Skill` |
+| `src/data/resume.tsx` | Add `skillDescriptions` to **DATA_EN** and **DATA_PT** (language-specific); replace `footerSubtitle` with `footerHeadline`/`footerPitch`/`footerResume` in both. Add `level` + `description` to all skills in `COMMON_DATA.skills`. Do NOT touch COMMON_DATA for i18n fields. |
 | `src/components/section/skills.tsx` | Full rewrite — tabs + progress bar (key-based reset) + two-column panel |
 | `src/components/section/projects.tsx` | Rewrite — `TerminalCard` sub-component + `CodeParticlesBg` |
 | `src/components/three/code-particles-bg.tsx` | New — Sprite-based glyphs + Points particles |
