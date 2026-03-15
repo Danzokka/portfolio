@@ -3,6 +3,7 @@ import { JSX } from "react";
 type Skill = {
   name: string;
   icon: JSX.Element | SVGSVGElement;
+  category: 'frontend' | 'backend' | 'devops';
 };
 
 type SocialContact = {
@@ -43,11 +44,13 @@ type Education = {
 
 type Project = {
   title: string;
+  slug: string;
   href: string;
   dates: string;
   active: boolean;
   description: string;
   technologies: Skill[];
+  category: 'frontend' | 'backend' | 'infra';
   image?: string;
   video?: string;
   links?: {
@@ -72,14 +75,17 @@ type Review = {
 }
 
 type Metric = {
-  value: string;
+  value: number;
+  suffix: string;
   label: string;
+  isInfinity?: boolean;
 }
 
 type Navbar = {
   home: string;
   projects: string;
-  about: string;
+  about?: string;
+  skills: string;
   services: string;
   contact: string;
 }
@@ -89,15 +95,18 @@ type Hero = {
   description: string;
   aboutMe: string;
   seeProjects: string;
+  tagline: string;
+  roles: string[];
+  contact: string;
 }
 
 type SectionTitles = {
   projects: string;
   projectsSubtitle: string;
   projectsDescription: string;
-  about: string;
-  aboutSubtitle: string;
-  aboutDescription: string;
+  about?: string;
+  aboutSubtitle?: string;
+  aboutDescription?: string;
   services: string;
   servicesSubtitle: string;
   servicesDescription: string;
@@ -107,6 +116,14 @@ type SectionTitles = {
   footerSubtitle: string;
   getStarted: string;
   available: string;
+  skills: string;
+  skillsFrontend: string;
+  skillsBackend: string;
+  skillsDevops: string;
+  projectsAll: string;
+  projectsFrontend: string;
+  projectsBackend: string;
+  projectsInfra: string;
 }
 
 type User = {
