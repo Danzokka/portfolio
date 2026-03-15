@@ -101,10 +101,12 @@ export default function Skills() {
   useEffect(() => {
     const idx = TABS.indexOf(activeTab);
     const timer = setTimeout(() => {
-      goTo(TABS[(idx + 1) % TABS.length]);
+      const next = TABS[(idx + 1) % TABS.length];
+      setActiveTab(next);
+      setProgressKey((k) => k + 1);
     }, 5000);
     return () => clearTimeout(timer);
-  }, [activeTab, progressKey]);
+  }, [activeTab]);
 
   const tabLabels: Record<Tab, string> = {
     frontend: sectionTitles.skillsFrontend,
@@ -128,10 +130,13 @@ export default function Skills() {
       </div>
 
       {/* Tab strip */}
-      <div className="flex border-b border-[#1a1a1a]">
+      <div role="tablist" aria-label={sectionTitles.skills} className="flex border-b border-[#1a1a1a]">
         {TABS.map((tab) => (
           <button
             key={tab}
+            role="tab"
+            aria-selected={activeTab === tab}
+            tabIndex={activeTab === tab ? 0 : -1}
             onClick={() => goTo(tab)}
             className={`px-5 py-2.5 font-mono text-xs uppercase tracking-widest transition-colors duration-200 cursor-pointer border-b-2 -mb-px ${
               activeTab === tab
@@ -171,6 +176,7 @@ export default function Skills() {
           {/* Left: category description */}
           <div className="lg:w-2/5">
             <p
+              aria-hidden="true"
               className="font-mono text-[9px] uppercase tracking-[3px] mb-2"
               style={{ color: TAB_COLORS[activeTab] }}
             >
@@ -180,7 +186,7 @@ export default function Skills() {
               {tabLabels[activeTab]}
             </h3>
             <p className="font-sans text-sm text-zinc-500 leading-relaxed">
-              {(skillDescriptions as Record<Tab, string>)[activeTab]}
+              {skillDescriptions[activeTab]}
             </p>
           </div>
 
