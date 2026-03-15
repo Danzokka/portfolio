@@ -1,142 +1,125 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { cn } from "@/lib/utils";
-import { Button } from "./ui/button";
-import ShiningButton from "./ui/shining-button";
+import { Menu } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
+import Logo from "@/components/logo";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
 
-const Logo = ({ className }: { className?: string }) => (
-  <Image
-    src={"/logo/logo.png"}
-    alt="Logo"
-    width={192}
-    height={96}
-    className={cn(className)}
-  />
-);
+const NAV_HREFS: Record<string, string> = {
+  home: "#",
+  projects: "#projects",
+  skills: "#skills",
+  services: "#services",
+  contact: "#contact",
+};
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const { language, setLanguage } = useLanguage();
-
-  const handleScroll = () => {
-    if (window.scrollY > 0) {
-      setIsScrolled(true);
-    } else {
-      setIsScrolled(false);
-    }
-  };
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const { language, setLanguage, data } = useLanguage();
+  const { navbar } = data;
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    const onScroll = () => setIsScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const navLinks = [
-    { name: language === "pt" ? "Início" : "Home", href: "#" },
-    { name: language === "pt" ? "Projetos" : "Projects", href: "#projects" },
-    { name: language === "pt" ? "Sobre" : "About", href: "#about" },
-    { name: language === "pt" ? "Serviços" : "Services", href: "#services" },
-    { name: language === "pt" ? "Contato" : "Contact", href: "#contact" },
+  const navItems = [
+    { label: navbar.home,     href: NAV_HREFS.home     },
+    { label: navbar.projects, href: NAV_HREFS.projects  },
+    { label: navbar.skills,   href: NAV_HREFS.skills    },
+    { label: navbar.services, href: NAV_HREFS.services  },
+    { label: navbar.contact,  href: NAV_HREFS.contact   },
   ];
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-bg ${isScrolled ? "bg-black border-b" : "bg-transparent"}`}
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-black/80 backdrop-blur-md border-b border-[#1a1a1a]"
+          : "bg-transparent"
+      }`}
     >
-      <nav className="w-full max-w-screen-2xl mx-auto px-4 lg:px-6 py-2.5">
-        <div className="flex flex-wrap justify-between items-center">
-          <Link href="/" className="flex items-center">
-            <Logo className="" />
-          </Link>
-          <div className="flex items-center lg:order-2 gap-2">
-            {/* Language flag toggle */}
+      <nav className="w-full max-w-screen-2xl mx-auto px-4 lg:px-8 py-3">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <Logo />
+
+          {/* Desktop nav */}
+          <ul className="hidden lg:flex items-center gap-1">
+            {navItems.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="px-3 py-1.5 text-sm font-mono text-zinc-400 hover:text-zinc-100 transition-colors duration-200"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          {/* Right side actions */}
+          <div className="flex items-center gap-2">
+            {/* Language toggle */}
             <button
               onClick={() => setLanguage(language === "pt" ? "en" : "pt")}
-              title={
-                language === "pt" ? "Switch to English" : "Mudar para Português"
-              }
-              className="relative size-10 rounded-full border border-purple-500/40 bg-purple-950/30 hover:bg-purple-900/40 hover:border-purple-400/60 backdrop-blur-sm transition-all duration-300 overflow-hidden group p-0"
-              style={{ perspective: "600px" }}
+              title={language === "pt" ? "Switch to English" : "Mudar para Português"}
+              className="relative size-9 rounded-full border border-purple-500/40 bg-purple-950/30 hover:bg-purple-900/40 hover:border-purple-400/60 backdrop-blur-sm transition-all duration-300 overflow-hidden group p-0 cursor-pointer"
             >
-              {/* Current flag (visible, flips away on hover) */}
               <span
-                className="absolute inset-0 flex items-center justify-center leading-none transition-all duration-300"
-                style={{
-                  fontSize: "50px",
-                  backfaceVisibility: "hidden",
-                  transform: "rotateY(0deg)",
-                }}
+                className="absolute inset-0 flex items-center justify-center leading-none transition-all duration-300 group-hover:opacity-0 group-hover:scale-75"
+                style={{ fontSize: "44px" }}
               >
-                <span
-                  className="block transition-all duration-300 group-hover:[transform:rotateY(90deg)] group-hover:opacity-0"
-                  style={{ transformOrigin: "center" }}
-                >
-                  {language === "pt" ? "🇧🇷" : "🇺🇸"}
-                </span>
+                {language === "pt" ? "🇧🇷" : "🇺🇸"}
               </span>
-              {/* Target flag (hidden, flips in on hover) */}
               <span
-                className="absolute inset-0 flex items-center justify-center leading-none opacity-0 scale-75 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100 delay-75"
-                style={{ fontSize: "38px" }}
+                className="absolute inset-0 flex items-center justify-center leading-none opacity-0 scale-75 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100"
+                style={{ fontSize: "36px" }}
               >
                 {language === "pt" ? "🇺🇸" : "🇧🇷"}
               </span>
             </button>
-            <ShiningButton href="#">
-              {language === "pt" ? "Contato" : "Contact Me"}
-            </ShiningButton>
-            <button
-              data-collapse-toggle="mobile-menu-2"
-              type="button"
-              className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-              aria-controls="mobile-menu-2"
-              aria-expanded="false"
-            >
-              <span className="sr-only">Open main menu</span>
-              <svg
-                className="w-6 h-6"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
+
+            {/* Mobile menu trigger */}
+            <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+              <SheetTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="lg:hidden text-zinc-400 hover:text-zinc-100 cursor-pointer"
+                  aria-label="Open menu"
+                >
+                  <Menu className="size-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent
+                side="right"
+                className="w-64 bg-black border-l border-[#1a1a1a] p-6"
               >
-                <path
-                  fillRule="evenodd"
-                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-              <svg
-                className="hidden w-6 h-6"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-            </button>
-          </div>
-          <div
-            className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
-            id="mobile-menu-2"
-          >
-            <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-              {navLinks.map((link) => (
-                <li key={link.name}>
-                  <Button variant="ghost" asChild>
-                    <Link href={link.href}>{link.name}</Link>
-                  </Button>
-                </li>
-              ))}
-            </ul>
+                <div className="mb-8">
+                  <Logo asDiv />
+                </div>
+                <nav>
+                  <ul className="flex flex-col gap-4">
+                    {navItems.map((item) => (
+                      <li key={item.href}>
+                        <Link
+                          href={item.href}
+                          onClick={() => setMobileOpen(false)}
+                          className="font-mono text-zinc-400 hover:text-zinc-100 transition-colors duration-200 text-sm"
+                        >
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </nav>

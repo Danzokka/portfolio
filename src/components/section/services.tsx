@@ -1,110 +1,56 @@
 "use client";
-import React from "react";
-import BlurSeparator from "../ui/blur-separator";
-import { Separator } from "../ui/separator";
-import { Badge } from "../ui/badge";
-import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
-import { Service } from "@/types/user";
-import { BlurFade } from "../ui/blur-fade";
-import { DELAY_TIME, DELAY_TIME_MULTIPLIER } from "@/data/config";
-import { H2, Lead } from "../ui/typography";
 import { useLanguage } from "@/contexts/language-context";
+import { useBlurFade } from "@/hooks/use-blur-fade";
+import type { Service } from "@/types/user";
 
-const ServiceList = () => {
-  const { data } = useLanguage();
+function ServiceCard({ service, delay }: { service: Service; delay: number }) {
+  const ref = useBlurFade<HTMLDivElement>();
+
   return (
-    <div className="flex flex-wrap gap-4 my-4 w-full justify-between">
-      {data.services.map((service, index) => (
-        <div key={service.title}>
-          <BlurFade delay={DELAY_TIME + (index + 4) * DELAY_TIME_MULTIPLIER} className="" inView>
-            <Badge variant="default" className="">
-              <div className="flex items-center gap-3 py-2 w-full">
-                <span>{service.icon}</span>
-                <span className="">{service.title}</span>
-              </div>
-            </Badge>
-          </BlurFade>
-        </div>
-      ))}
+    <div
+      ref={ref}
+      data-animate
+      style={{ transitionDelay: `${delay}ms` }}
+      className="p-6 rounded-xl border border-[#1a1a1a] bg-zinc-950/60 hover:border-[#6C63FF]/30 transition-colors duration-300 flex flex-col gap-4"
+    >
+      <div className="size-10 flex items-center justify-center rounded-lg bg-[#6C63FF]/10 text-[#6C63FF]">
+        {service.icon}
+      </div>
+      <h3 className="font-sans font-semibold text-zinc-100 text-sm">
+        {service.title}
+      </h3>
+      <p className="font-sans text-xs text-zinc-500 leading-relaxed">
+        {service.description}
+      </p>
     </div>
   );
-};
+}
 
-const ServiceCard = ({ service }: { service: Service }) => {
-  return (
-    <Card className="bg-transparent border-none">
-      <CardHeader className="-mb-4">
-        <CardTitle>
-          <div className="flex items-center gap-3 py-2 w-full">
-            <span>{service.icon}</span>
-            <span className="">{service.title}</span>
-          </div>
-        </CardTitle>
-      </CardHeader>
-      <div className="px-5 w-full">
-        <Separator />
-      </div>
-      <CardContent>
-        <p>{service.description}</p>
-      </CardContent>
-    </Card>
-  );
-};
-
-const Services = () => {
+export default function Services() {
   const { data } = useLanguage();
+  const { sectionTitles, services } = data;
+
+  const titleRef = useBlurFade<HTMLDivElement>();
+
   return (
-    <section id="services">
-      <div className="w-full min-h-screen h-full">
-        <BlurFade delay={DELAY_TIME + 0 * DELAY_TIME_MULTIPLIER} className="" inView>
-          <BlurSeparator title={data.sectionTitles.services} />
-        </BlurFade>
-        {/* Services + Image Placeholder */}
-        <div className="w-full grid grid-cols-2 gap-4 mt-8">
-          {/* Text Placeholder */}
-          <div className="flex flex-col justify-center items-start">
-            <BlurFade delay={DELAY_TIME + 1 * DELAY_TIME_MULTIPLIER} className="" inView>
-              <H2>{data.sectionTitles.servicesSubtitle}</H2>
-            </BlurFade>
-            <BlurFade delay={DELAY_TIME + 2 * DELAY_TIME_MULTIPLIER} className="mt-4" inView>
-              <Lead>
-                {data.sectionTitles.servicesDescription}
-              </Lead>
-            </BlurFade>
-            <BlurFade
-              delay={DELAY_TIME + 3 * DELAY_TIME_MULTIPLIER}
-              className="w-full mt-6"
-              inView
-            >
-              <Separator />
-            </BlurFade>
-            <div className="w-full">
-              <ServiceList />
-            </div>
-          </div>
-          {/* Image Placeholder */}
-          <BlurFade delay={DELAY_TIME + 2 * DELAY_TIME_MULTIPLIER} className="" inView>
-            <div className="w-full h-full bg-muted rounded-lg flex items-center justify-center">
-              <span className="text-muted-foreground">Imagem de Serviços</span>
-            </div>
-          </BlurFade>
-        </div>
-        {/* Services With Description */}
-        <div className="grid grid-cols-3 w-full mt-8 gap-4">
-          {data.services.map((service, index) => (
-            <BlurFade
-              key={service.title}
-              delay={DELAY_TIME + (data.services.length + 4 + index) * DELAY_TIME_MULTIPLIER}
-              className=""
-              inView
-            >
-              <ServiceCard service={service} />
-            </BlurFade>
-          ))}
-        </div>
+    <section id="services" className="w-full py-24 px-4 max-w-6xl mx-auto">
+      <div ref={titleRef} data-animate className="mb-12 text-center">
+        <p className="font-mono text-xs text-zinc-600 tracking-widest uppercase mb-2">
+          ./services
+        </p>
+        <h2 className="font-sans text-3xl font-bold text-zinc-100 mb-3">
+          {sectionTitles.services}
+        </h2>
+        <p className="font-sans text-sm text-zinc-500 max-w-md mx-auto">
+          {sectionTitles.servicesDescription}
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {services.map((service, i) => (
+          <ServiceCard key={service.title} service={service} delay={i * 80} />
+        ))}
       </div>
     </section>
   );
-};
-
-export default Services;
+}

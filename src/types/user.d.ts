@@ -1,6 +1,6 @@
 import { JSX } from "react";
 
-type Skill = {
+export type Skill = {
   name: string;
   icon: JSX.Element | SVGSVGElement;
   category: 'frontend' | 'backend' | 'devops';
@@ -42,7 +42,7 @@ type Education = {
   endDate: string;
 };
 
-type Project = {
+export type Project = {
   title: string;
   slug: string;
   href: string;
@@ -66,7 +66,7 @@ export type Service = {
   icon: JSX.Element;
 }
 
-type Review = {
+export type Review = {
   avatar: string;
   name: string;
   position: string;
@@ -74,7 +74,7 @@ type Review = {
   reviewText: string;
 }
 
-type Metric = {
+export type Metric = {
   value: number;
   suffix: string;
   label: string;

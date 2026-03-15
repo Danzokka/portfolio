@@ -9,7 +9,7 @@ import {
   Code,
   Code2,
 } from "lucide-react";
-import { User } from "@/types/user";
+import { Skill, User } from "@/types/user";
 import StackIcon from "tech-stack-icons";
 import { P } from "@/components/ui/typography";
 
@@ -39,100 +39,31 @@ const COMMON_DATA = {
       },
     ],
   },
-  skills: [
-    {
-      name: "JavaScript",
-      icon: <StackIcon name="js" className="size-4" />,
-    },
-    {
-      name: "TypeScript",
-      icon: <StackIcon name="typescript" className="size-4" />,
-    },
-    {
-      name: "Node.js",
-      icon: <StackIcon name="nodejs" className="size-4" />,
-    },
-    {
-      name: "Next.js",
-      icon: <StackIcon name="nextjs2" className="size-4" />,
-    },
-    {
-      name: "NestJS",
-      icon: <StackIcon name="nestjs" className="size-4" />,
-    },
-    {
-      name: "Docker",
-      icon: <StackIcon name="docker" className="size-4" />,
-    },
-    {
-      name: "PostgreSQL",
-      icon: <StackIcon name="postgresql" className="size-4" />,
-    },
-    {
-      name: "Linux",
-      icon: <StackIcon name="linux" className="size-4" />,
-    },
-    {
-      name: "AWS",
-      icon: <StackIcon name="aws" className="size-4" variant="dark" />,
-    },
-    {
-      name: "Tailwind CSS",
-      icon: <StackIcon name="tailwindcss" className="size-4" />,
-    },
-    {
-      name: "Shell",
-      icon: <StackIcon name="bash" className="size-4" variant="dark" />,
-    },
-    {
-      name: "Git",
-      icon: <StackIcon name="git" className="size-4" />,
-    },
-    {
-      name: "Prisma",
-      icon: <StackIcon name="prisma" className="size-4" variant="dark" />,
-    },
-    {
-      name: "ShadcnUI",
-      icon: <StackIcon name="shadcnui" className="size-4" variant="dark" />,
-    },
-    {
-      name: "GitHub",
-      icon: <StackIcon name="github" className="size-4" variant="dark" />,
-    },
-    {
-      name: "MongoDB",
-      icon: <StackIcon name="mongodb" className="size-4" />,
-    },
-    {
-      name: "React",
-      icon: <StackIcon name="react" className="size-4" />,
-    },
-    {
-      name: "Python",
-      icon: <StackIcon name="python" className="size-4" />,
-    },
-    {
-      name: "PHP",
-      icon: <StackIcon name="php" className="size-4" />,
-    },
-    {
-      name: "N8N",
-      icon: <StackIcon name="n8n" className="size-4" />,
-    },
-    {
-      name: "Moodle",
-      icon: <StackIcon name="moodle" className="size-4" />,
-    },
-    {
-      name: "Jenkins",
-      icon: <StackIcon name="jenkins" className="size-4" variant="dark" />,
-    },
-    {
-      name: "GitHub Actions",
-      icon: <StackIcon name="githubactions" className="size-4" variant="dark" />,
-    }
-  ],
+  skills: ([
+    { name: "JavaScript",      icon: <StackIcon name="js"             className="size-4" />,              category: "frontend" },
+    { name: "TypeScript",      icon: <StackIcon name="typescript"     className="size-4" />,              category: "frontend" },
+    { name: "React",           icon: <StackIcon name="react"          className="size-4" />,              category: "frontend" },
+    { name: "Next.js",         icon: <StackIcon name="nextjs2"        className="size-4" />,              category: "frontend" },
+    { name: "Tailwind CSS",    icon: <StackIcon name="tailwindcss"    className="size-4" />,              category: "frontend" },
+    { name: "ShadcnUI",        icon: <StackIcon name="shadcnui"       className="size-4" variant="dark"/>, category: "frontend" },
+    { name: "Node.js",         icon: <StackIcon name="nodejs"         className="size-4" />,              category: "backend"  },
+    { name: "NestJS",          icon: <StackIcon name="nestjs"         className="size-4" />,              category: "backend"  },
+    { name: "PostgreSQL",      icon: <StackIcon name="postgresql"     className="size-4" />,              category: "backend"  },
+    { name: "MongoDB",         icon: <StackIcon name="mongodb"        className="size-4" />,              category: "backend"  },
+    { name: "Prisma",          icon: <StackIcon name="prisma"         className="size-4" variant="dark"/>, category: "backend"  },
+    { name: "Python",          icon: <StackIcon name="python"         className="size-4" />,              category: "backend"  },
+    { name: "PHP",             icon: <StackIcon name="php"            className="size-4" />,              category: "backend"  },
+    { name: "Moodle",          icon: <StackIcon name="moodle"         className="size-4" />,              category: "backend"  },
+    { name: "Docker",          icon: <StackIcon name="docker"         className="size-4" />,              category: "devops"   },
+    { name: "Linux",           icon: <StackIcon name="linux"          className="size-4" />,              category: "devops"   },
+    { name: "AWS",             icon: <StackIcon name="aws"            className="size-4" variant="dark"/>, category: "devops"   },
+    { name: "Shell",           icon: <StackIcon name="bash"           className="size-4" variant="dark"/>, category: "devops"   },
+    { name: "Git",             icon: <StackIcon name="git"            className="size-4" />,              category: "devops"   },
+    { name: "GitHub",          icon: <StackIcon name="github"         className="size-4" variant="dark"/>, category: "devops"   },
+    { name: "GitHub Actions",  icon: <StackIcon name="githubactions"  className="size-4" variant="dark"/>, category: "devops"   },
+    { name: "Jenkins",         icon: <StackIcon name="jenkins"        className="size-4" variant="dark"/>, category: "devops"   },
+    { name: "N8N",             icon: <StackIcon name="n8n"            className="size-4" />,              category: "devops"   },
+  ] as Skill[]),
 };
 
 export const DATA_EN: User = {
@@ -158,10 +89,13 @@ export const DATA_EN: User = {
       description:
         "Edukativa is an online learning platform that offers courses on various topics, including programming, design, and marketing. As a Software Engineer, I was responsible for developing and maintaining the platform's core features.",
       technologies: [
-        {
-          name: "Next.js",
-          icon: <StackIcon name="nextjs2" className="size-4" />,
-        },
+        { name: "Next.js",    icon: <StackIcon name="nextjs2"     className="size-4" />,              category: "frontend" },
+        { name: "Node.js",   icon: <StackIcon name="nodejs"      className="size-4" />,              category: "backend"  },
+        { name: "NestJS",    icon: <StackIcon name="nestjs"      className="size-4" />,              category: "backend"  },
+        { name: "PostgreSQL",icon: <StackIcon name="postgresql"  className="size-4" />,              category: "backend"  },
+        { name: "Tailwind",  icon: <StackIcon name="tailwindcss" className="size-4" />,              category: "frontend" },
+        { name: "Docker",    icon: <StackIcon name="docker"      className="size-4" />,              category: "devops"   },
+        { name: "AWS",       icon: <StackIcon name="aws"         className="size-4" variant="dark"/>, category: "devops"   },
       ],
     },
   ],
@@ -178,16 +112,17 @@ export const DATA_EN: User = {
   projects: [
     {
       title: "Painel",
+      slug: "painel",
       href: "https://painel.danzokka.com",
       dates: "2023",
       active: true,
+      category: "frontend",
       description:
         "Painel is a SaaS platform that allows creators to build and customize their own dashboards to manage their online presence and content.",
       technologies: [
-        {
-          name: "React",
-          icon: <StackIcon name="react" className="size-4" />,
-        },
+        { name: "React",      icon: <StackIcon name="react"      className="size-4" />, category: "frontend" },
+        { name: "Next.js",   icon: <StackIcon name="nextjs2"    className="size-4" />, category: "frontend" },
+        { name: "Tailwind",  icon: <StackIcon name="tailwindcss"className="size-4" />, category: "frontend" },
       ],
       image: "/projects/painel.png",
       links: [
@@ -200,21 +135,18 @@ export const DATA_EN: User = {
     },
     {
       title: "Marcador de Consultas",
+      slug: "marcador-de-consultas",
       href: "https://github.com/Danzokka/marcador-de-consultas",
       dates: "2024",
       active: true,
+      category: "frontend",
       description:
         "An appointment scheduling system for users, developed with Next.js, NestJS, and Prisma, utilizing ShadcnUI for visual components.",
       technologies: [
-        {
-          name: "Next.js",
-          icon: <StackIcon name="nextjs2" className="size-4" />,
-        },
-
-        {
-          name: "PostgreSQL",
-          icon: <StackIcon name="postgresql" className="size-4" />,
-        },
+        { name: "Next.js",    icon: <StackIcon name="nextjs2"    className="size-4" />,              category: "frontend" },
+        { name: "NestJS",    icon: <StackIcon name="nestjs"     className="size-4" />,              category: "backend"  },
+        { name: "PostgreSQL",icon: <StackIcon name="postgresql" className="size-4" />,              category: "backend"  },
+        { name: "Prisma",    icon: <StackIcon name="prisma"     className="size-4" variant="dark"/>, category: "backend"  },
       ],
       links: [
         {
@@ -226,15 +158,15 @@ export const DATA_EN: User = {
     },
     {
       title: "install_scripts",
+      slug: "install-scripts",
       href: "https://github.com/Danzokka/install_scripts",
       dates: "2024",
       active: true,
+      category: "infra",
       description: "An automated and versatile installer for systems.",
       technologies: [
-        {
-          name: "Shell",
-          icon: <StackIcon name="shell" className="size-4" />,
-        },
+        { name: "Shell",  icon: <StackIcon name="bash"   className="size-4" variant="dark"/>, category: "devops" },
+        { name: "Linux",  icon: <StackIcon name="linux"  className="size-4" />,               category: "devops" },
       ],
       links: [
         {
@@ -246,15 +178,16 @@ export const DATA_EN: User = {
     },
     {
       title: "CMS-Portfolio",
+      slug: "cms-portfolio",
       href: "https://github.com/Danzokka/CMS-Portfolio",
       dates: "2024",
       active: true,
+      category: "frontend",
       description: "A Content Management System designed for portfolios.",
       technologies: [
-        {
-          name: "Next.js",
-          icon: <StackIcon name="nextjs2" className="size-4" />,
-        },
+        { name: "Next.js",  icon: <StackIcon name="nextjs2"    className="size-4" />,              category: "frontend" },
+        { name: "NestJS",  icon: <StackIcon name="nestjs"     className="size-4" />,              category: "backend"  },
+        { name: "Prisma",  icon: <StackIcon name="prisma"     className="size-4" variant="dark"/>, category: "backend"  },
       ],
       links: [
         {
@@ -265,44 +198,47 @@ export const DATA_EN: User = {
       ],
     },
     {
-      title: "Sistema Gestão Acadêmica",
+      title: "Academic Management System",
+      slug: "sistema-gestao-academica",
       href: "https://github.com/Devs-Edukativa/sistema-gestao-academica",
-      dates: "2026",
+      dates: "2023–2026",
       active: true,
-      description: "Monorepo for Academic Management System.",
+      category: "backend",
+      description: "Monorepo for Academic Management System integrated with Moodle.",
       technologies: [
-        {
-          name: "TypeScript",
-          icon: <StackIcon name="typescript" className="size-4" />,
-        },
+        { name: "NestJS",    icon: <StackIcon name="nestjs"    className="size-4" />,              category: "backend"  },
+        { name: "Next.js",  icon: <StackIcon name="nextjs2"   className="size-4" />,              category: "frontend" },
+        { name: "MongoDB",  icon: <StackIcon name="mongodb"   className="size-4" />,              category: "backend"  },
+        { name: "Docker",   icon: <StackIcon name="docker"    className="size-4" />,              category: "devops"   },
       ],
       links: [],
     },
     {
       title: "Infraero Simulator",
+      slug: "infraero-simulator",
       href: "https://github.com/Devs-Edukativa/infraero-sim",
       dates: "2025",
       active: true,
-      description: "Simulator for Infraero systems.",
+      category: "frontend",
+      description: "Simulator for Infraero emergency operational procedures training.",
       technologies: [
-        {
-          name: "TypeScript",
-          icon: <StackIcon name="typescript" className="size-4" />,
-        },
+        { name: "TypeScript", icon: <StackIcon name="typescript" className="size-4" />, category: "frontend" },
+        { name: "Next.js",   icon: <StackIcon name="nextjs2"    className="size-4" />, category: "frontend" },
       ],
       links: [],
     },
     {
       title: "FinOrg",
+      slug: "finorg",
       href: "https://github.com/RS-Devworks/finorg",
       dates: "2025",
       active: true,
+      category: "backend",
       description: "Financial Management System.",
       technologies: [
-        {
-          name: "TypeScript",
-          icon: <StackIcon name="typescript" className="size-4" />,
-        },
+        { name: "NestJS",    icon: <StackIcon name="nestjs"    className="size-4" />,              category: "backend"  },
+        { name: "Next.js",  icon: <StackIcon name="nextjs2"   className="size-4" />,              category: "frontend" },
+        { name: "Prisma",   icon: <StackIcon name="prisma"    className="size-4" variant="dark"/>, category: "backend"  },
       ],
       links: [],
     },
@@ -332,53 +268,51 @@ export const DATA_EN: User = {
     },
   ],
   metrics: [
-    {
-      value: "100+",
-      label: "Clients Served",
-    },
-    {
-      value: "250K+",
-      label: "Lines of Code",
-    },
-    {
-      value: "50+",
-      label: "Projects Completed",
-    },
+    { value: 5,   suffix: "+",  label: "Years of Experience" },
+    { value: 20,  suffix: "+",  label: "Projects Completed"  },
+    { value: 0,   suffix: "",   label: "Coffee Cups",   isInfinity: true },
   ],
   navbar: {
     home: "Home",
     projects: "Projects",
-    about: "About",
+    skills: "Skills",
     services: "Services",
     contact: "Contact",
   },
   hero: {
-    title: "Welcome to My Portfolio",
+    title: "Rafael Dantas",
     description:
-      "I am a passionate developer specializing in creating beautiful and functional web applications. Explore my projects and services below.",
+      "Fullstack Engineer with DevOps expertise. I build scalable systems end-to-end — from pixel-perfect UIs to production infrastructure.",
+    tagline: "connecting systems",
+    roles: ["Fullstack Engineer", "DevOps Engineer", "Infrastructure"],
     aboutMe: "About Me",
     seeProjects: "See Projects",
+    contact: "Contact Me",
   },
   sectionTitles: {
-    projects: "My Projects",
-    projectsSubtitle: "See my latest work",
+    projects: "Projects",
+    projectsSubtitle: "What I've shipped",
     projectsDescription:
-      "I've worked on a variety of projects, from simple websites to complex web applications. Here are a few of my favorites.",
-    about: "About Me",
-    aboutSubtitle: "About Rafael",
-    aboutDescription:
-      "Our team is composed of passionate professionals dedicated to delivering the best solutions for our clients. Get to know the people behind the projects.",
-    services: "My Services",
+      "From SaaS platforms to observability stacks — a selection of production systems I've designed and deployed.",
+    services: "Services",
     servicesSubtitle: "What I offer",
     servicesDescription:
-      "I offer a variety of services to help you achieve your digital goals. From custom website development to search engine optimization, I'm here to help your business grow online.",
+      "I offer end-to-end development and infrastructure services to help your product scale.",
     reviews: "Reviews",
-    reviewsSubtitle: "Client Reviews",
+    reviewsSubtitle: "Client Feedback",
     reviewsDescription:
-      "Real feedback from clients who trusted my design expertise to elevate their brands successfully.",
+      "Real feedback from clients who trusted me to deliver.",
     footerSubtitle: "Available for work",
     getStarted: "Get Started",
     available: "Available for work",
+    skills: "Skills",
+    skillsFrontend: "Frontend",
+    skillsBackend: "Backend",
+    skillsDevops: "DevOps & Infra",
+    projectsAll: "All",
+    projectsFrontend: "Frontend",
+    projectsBackend: "Backend",
+    projectsInfra: "Infra",
   },
 };
 
@@ -404,34 +338,13 @@ export const DATA_PT: User = {
       description:
         "A Edukativa é uma plataforma de aprendizado online que oferece cursos sobre diversos temas, incluindo programação, design e marketing. Como Engenheiro de Software, fui responsável pelo desenvolvimento e manutenção dos principais recursos da plataforma.",
       technologies: [
-        {
-          name: "Next.js",
-          icon: <StackIcon name="nextjs2" className="size-4" />,
-        },
-        {
-          name: "Node.js",
-          icon: <StackIcon name="nodejs" className="size-4" />,
-        },
-        {
-          name: "PostgreSQL",
-          icon: <StackIcon name="postgresql" className="size-4" />,
-        },
-        {
-          name: "Docker",
-          icon: <StackIcon name="docker" className="size-4" />,
-        },
-        {
-          name: "NestJS",
-          icon: <StackIcon name="nestjs" className="size-4" />,
-        },
-        {
-          name: "AWS",
-          icon: <StackIcon name="aws" className="size-4" variant="dark" />,
-        },
-        {
-          name: "Tailwind CSS",
-          icon: <StackIcon name="tailwindcss" className="size-4" />,
-        },
+        { name: "Next.js",    icon: <StackIcon name="nextjs2"     className="size-4" />,              category: "frontend" },
+        { name: "Node.js",   icon: <StackIcon name="nodejs"      className="size-4" />,              category: "backend"  },
+        { name: "NestJS",    icon: <StackIcon name="nestjs"      className="size-4" />,              category: "backend"  },
+        { name: "PostgreSQL",icon: <StackIcon name="postgresql"  className="size-4" />,              category: "backend"  },
+        { name: "Tailwind",  icon: <StackIcon name="tailwindcss" className="size-4" />,              category: "frontend" },
+        { name: "Docker",    icon: <StackIcon name="docker"      className="size-4" />,              category: "devops"   },
+        { name: "AWS",       icon: <StackIcon name="aws"         className="size-4" variant="dark"/>, category: "devops"   },
       ],
     },
     {
@@ -450,34 +363,12 @@ export const DATA_PT: User = {
       description:
         "A Edukativa é uma plataforma de aprendizado online que oferece cursos sobre diversos temas, incluindo programação, design e marketing. Como Engenheiro de Software, fui responsável pelo desenvolvimento e manutenção dos principais recursos da plataforma.",
       technologies: [
-        {
-          name: "N8N",
-          icon: <StackIcon name="n8n" className="size-4" />,
-        },
-        {
-          name: "Moodle",
-          icon: <StackIcon name="moodle" className="size-4" />,
-        },
-        {
-          name: "PHP",
-          icon: <StackIcon name="php" className="size-4" />,
-        },
-        {
-          name: "JavaScript",
-          icon: <StackIcon name="js" className="size-4" />,
-        },
-        {
-          name: "JQuery",
-          icon: <StackIcon name="jquery" className="size-4" />,
-        },
-        {
-          name: "MySQL",
-          icon: <StackIcon name="mysql" className="size-4" />,
-        },
-        {
-          name: "AWS",
-          icon: <StackIcon name="aws" className="size-4" variant="dark" />,
-        },
+        { name: "N8N",        icon: <StackIcon name="n8n"    className="size-4" />,              category: "devops"   },
+        { name: "Moodle",    icon: <StackIcon name="moodle" className="size-4" />,              category: "backend"  },
+        { name: "PHP",       icon: <StackIcon name="php"    className="size-4" />,              category: "backend"  },
+        { name: "JavaScript",icon: <StackIcon name="js"     className="size-4" />,              category: "frontend" },
+        { name: "MySQL",     icon: <StackIcon name="mysql"  className="size-4" />,              category: "backend"  },
+        { name: "AWS",       icon: <StackIcon name="aws"    className="size-4" variant="dark"/>, category: "devops"   },
       ],
     },
   ],
@@ -494,89 +385,41 @@ export const DATA_PT: User = {
   projects: [
     {
       title: "Coink",
+      slug: "coink",
       href: "https://github.com/Danzokka/coink",
       image: "/projects/coink.png",
-      dates: "2025-2026",
+      dates: "2025–2026",
       active: true,
+      category: "frontend",
       description:
         "Coink é um sistema de gerenciamento financeiro pessoal desenvolvido com Next.js, NestJS, Prisma, Tailwind CSS e ShadcnUI.",
       technologies: [
-        {
-          name: "Next.js",
-          icon: <StackIcon name="nextjs2" className="size-4" />,
-        },
-        {
-          name: "NestJS",
-          icon: <StackIcon name="nestjs" className="size-4" />,
-        },
-        {
-          name: "Tailwind CSS",
-          icon: <StackIcon name="tailwindcss" className="size-4" />,
-        },
-        {
-          name: "Prisma",
-          icon: <StackIcon name="prisma" className="size-4" variant="dark" />,
-        },
-        {
-          name: "PostgreSQL",
-          icon: <StackIcon name="postgresql" className="size-4" />,
-        },
-        {
-          name: "ShadcnUI",
-          icon: <StackIcon name="shadcnui" className="size-4" variant="dark" />,
-        },
+        { name: "Next.js",    icon: <StackIcon name="nextjs2"    className="size-4" />,              category: "frontend" },
+        { name: "NestJS",    icon: <StackIcon name="nestjs"     className="size-4" />,              category: "backend"  },
+        { name: "Tailwind",  icon: <StackIcon name="tailwindcss"className="size-4" />,              category: "frontend" },
+        { name: "Prisma",    icon: <StackIcon name="prisma"     className="size-4" variant="dark"/>, category: "backend"  },
+        { name: "PostgreSQL",icon: <StackIcon name="postgresql" className="size-4" />,              category: "backend"  },
+        { name: "ShadcnUI",  icon: <StackIcon name="shadcnui"   className="size-4" variant="dark"/>, category: "frontend" },
       ],
       links: [],
     },
     {
       title: "TCC-Estufa",
+      slug: "tcc-estufa",
       href: "https://github.com/Danzokka/tcc-estufa",
       image: "/projects/estufa.jpg",
       dates: "2024",
       active: true,
+      category: "backend",
       description:
         "Projeto de TCC sobre automação e monitoramento de estufas utilizando IA e tecnologias modernas.",
       technologies: [
-        {
-          name: "Next.js",
-          icon: <StackIcon name="nextjs2" className="size-4" />,
-        },
-        {
-          name: "NestJS",
-          icon: <StackIcon name="nestjs" className="size-4" />,
-        },
-        {
-          name: "PostgreSQL",
-          icon: <StackIcon name="postgresql" className="size-4" />,
-        },
-        {
-          name: "Prisma",
-          icon: <StackIcon name="prisma" className="size-4" variant="dark" />,
-        },
-        {
-          name: "ShadcnUI",
-          icon: <StackIcon name="shadcnui" className="size-4" variant="dark" />,
-        },
-        {
-          name: "Tailwind CSS",
-          icon: <StackIcon name="tailwindcss" className="size-4" />,
-        },
-        {
-          name: "TensorFlow",
-          icon: <StackIcon name="tensorflow" className="size-4" />,
-        },
-        {
-          name: "Python",
-          icon: <StackIcon name="python" className="size-4" />,
-        },
-        {
-          name: "Docker",
-          icon: <StackIcon name="docker" className="size-4" />,
-        },
-        {
-          name: "ESP32",
-          icon: <StackIcon name="esp32" className="size-4" />,
-        },
+        { name: "Next.js",    icon: <StackIcon name="nextjs2"    className="size-4" />,              category: "frontend" },
+        { name: "NestJS",    icon: <StackIcon name="nestjs"     className="size-4" />,              category: "backend"  },
+        { name: "PostgreSQL",icon: <StackIcon name="postgresql" className="size-4" />,              category: "backend"  },
+        { name: "Prisma",    icon: <StackIcon name="prisma"     className="size-4" variant="dark"/>, category: "backend"  },
+        { name: "Python",    icon: <StackIcon name="python"     className="size-4" />,              category: "backend"  },
+        { name: "Docker",    icon: <StackIcon name="docker"     className="size-4" />,              category: "devops"   },
       ],
       links: [
         {
@@ -588,37 +431,21 @@ export const DATA_PT: User = {
     },
     {
       title: "Acessa",
+      slug: "acessa",
       href: "https://acessa.edukativa.com.br",
       image: "/projects/acessa.png",
-      dates: "2025-2026",
+      dates: "2025–2026",
       active: true,
+      category: "frontend",
       description:
-        "Acessa é uma plataforma de acessibilidade para ensino de alunos com necessidades especiais",
+        "Acessa é uma plataforma de acessibilidade para ensino de alunos com necessidades especiais.",
       technologies: [
-        {
-          name: "Next.js",
-          icon: <StackIcon name="nextjs2" className="size-4" />,
-        },
-        {
-          name: "Tailwind CSS",
-          icon: <StackIcon name="tailwindcss" className="size-4" />,
-        },
-        {
-          name: "ShadcnUI",
-          icon: <StackIcon name="shadcnui" className="size-4" variant="dark" />,
-        },
-        {
-          name: "PostgreSQL",
-          icon: <StackIcon name="postgresql" className="size-4" />,
-        },
-        {
-          name: "Prisma",
-          icon: <StackIcon name="prisma" className="size-4" variant="dark" />,
-        },
-        {
-          name: "NestJS",
-          icon: <StackIcon name="nestjs" className="size-4" />,
-        },
+        { name: "Next.js",    icon: <StackIcon name="nextjs2"    className="size-4" />,              category: "frontend" },
+        { name: "Tailwind",  icon: <StackIcon name="tailwindcss"className="size-4" />,              category: "frontend" },
+        { name: "ShadcnUI",  icon: <StackIcon name="shadcnui"   className="size-4" variant="dark"/>, category: "frontend" },
+        { name: "NestJS",    icon: <StackIcon name="nestjs"     className="size-4" />,              category: "backend"  },
+        { name: "PostgreSQL",icon: <StackIcon name="postgresql" className="size-4" />,              category: "backend"  },
+        { name: "Prisma",    icon: <StackIcon name="prisma"     className="size-4" variant="dark"/>, category: "backend"  },
       ],
       links: [
         {
@@ -630,29 +457,19 @@ export const DATA_PT: User = {
     },
     {
       title: "Stack de Observabilidade",
+      slug: "stack-de-observabilidade",
       href: "https://homepage.edukativa.com.br",
       image: "/projects/observability.png",
-      dates: "2025-2026",
+      dates: "2025–2026",
       active: true,
+      category: "infra",
       description:
-        "Stack de Observabilidade completa com avisos automatizados enviados para o Slack, painel de gerenciamento de sessões para o Sistema de Gestão Academica e Acessa, automatização com Jenkins, análise de código com SonarQube, gerenciamento de sessões OIDC com Keycloak e Outline para documentação de serviços.",
+        "Stack de Observabilidade completa com Jenkins, SonarQube, Keycloak, Grafana e alertas automáticos no Slack.",
       technologies: [
-        {
-          name: "AWS",
-          icon: <StackIcon name="aws" className="size-4" variant="dark" />,
-        },
-        {
-          name: "Docker",
-          icon: <StackIcon name="docker" className="size-4" />,
-        },
-        {
-          name: "Jenkins",
-          icon: <StackIcon name="jenkins" className="size-4" />,
-        },
-        {
-          name: "Grafana",
-          icon: <StackIcon name="grafana" className="size-4" variant="dark" />,
-        },
+        { name: "AWS",     icon: <StackIcon name="aws"     className="size-4" variant="dark"/>, category: "devops" },
+        { name: "Docker",  icon: <StackIcon name="docker"  className="size-4" />,              category: "devops" },
+        { name: "Jenkins", icon: <StackIcon name="jenkins" className="size-4" />,              category: "devops" },
+        { name: "Grafana", icon: <StackIcon name="grafana" className="size-4" variant="dark"/>, category: "devops" },
       ],
       links: [
         {
@@ -664,37 +481,20 @@ export const DATA_PT: User = {
     },
     {
       title: "Sistema Gestão Acadêmica",
+      slug: "sistema-gestao-academica",
       href: "https://app.cognusplay.com.br",
       image: "/projects/painel.png",
-      dates: "2023-2026",
+      dates: "2023–2026",
       active: true,
+      category: "backend",
       description:
-        "Sistema de Gestão Academica integrado ao Moodle, serve como uma camada isolada do Moodle, permitindo que os alunos tenham uma experiência mais personalizada e eficiente sem navegar pelo Moodle, para os gerentes permite que vejam de forma instantânea dados de progresso de usuários e métricas importantes de cursos.",
+        "Sistema de Gestão Acadêmica integrado ao Moodle, com camada isolada para alunos e painel de métricas para gestores.",
       technologies: [
-        {
-          name: "Next.js",
-          icon: <StackIcon name="nextjs2" className="size-4" />,
-        },
-        {
-          name: "NestJS",
-          icon: <StackIcon name="nestjs" className="size-4" />,
-        },
-        {
-          name: "MongoDB",
-          icon: <StackIcon name="mongodb" className="size-4" />,
-        },
-        {
-          name: "Moodle",
-          icon: <StackIcon name="moodle" className="size-4" />,
-        },
-        {
-          name: "Redis",
-          icon: <StackIcon name="redis" className="size-4" />,
-        },
-        {
-          name: "Docker",
-          icon: <StackIcon name="docker" className="size-4" />,
-        },
+        { name: "Next.js",  icon: <StackIcon name="nextjs2"  className="size-4" />, category: "frontend" },
+        { name: "NestJS",  icon: <StackIcon name="nestjs"   className="size-4" />, category: "backend"  },
+        { name: "MongoDB", icon: <StackIcon name="mongodb"  className="size-4" />, category: "backend"  },
+        { name: "Moodle",  icon: <StackIcon name="moodle"   className="size-4" />, category: "backend"  },
+        { name: "Docker",  icon: <StackIcon name="docker"   className="size-4" />, category: "devops"   },
       ],
       links: [
         {
@@ -706,21 +506,17 @@ export const DATA_PT: User = {
     },
     {
       title: "Simulador Infraero",
+      slug: "simulador-infraero",
       href: "https://simulador.edukativa.com.br",
       image: "/projects/simulador.png",
       dates: "2025",
       active: true,
+      category: "infra",
       description:
-        "Um simulador desenvolvido para treinar funcionários da Infraero em procedimentos operacionais de emergências.",
+        "Simulador para treinamento de funcionários da Infraero em procedimentos operacionais de emergência.",
       technologies: [
-        {
-          name: "TypeScript",
-          icon: <StackIcon name="typescript" className="size-4" />,
-        },
-        {
-          name: "Next.js",
-          icon: <StackIcon name="nextjs2" className="size-4" />,
-        },
+        { name: "TypeScript", icon: <StackIcon name="typescript" className="size-4" />, category: "frontend" },
+        { name: "Next.js",   icon: <StackIcon name="nextjs2"    className="size-4" />, category: "frontend" },
       ],
       links: [
         {
@@ -762,53 +558,51 @@ export const DATA_PT: User = {
     },
   ],
   metrics: [
-    {
-      value: "100+",
-      label: "Clientes Atendidos",
-    },
-    {
-      value: "250K+",
-      label: "Linhas de Código",
-    },
-    {
-      value: "50+",
-      label: "Projetos Concluídos",
-    },
+    { value: 5,  suffix: "+", label: "Anos de Experiência" },
+    { value: 20, suffix: "+", label: "Projetos Concluídos" },
+    { value: 0,  suffix: "",  label: "Xícaras de Café", isInfinity: true },
   ],
   navbar: {
     home: "Início",
     projects: "Projetos",
-    about: "Sobre",
+    skills: "Habilidades",
     services: "Serviços",
     contact: "Contato",
   },
   hero: {
-    title: "Bem-vindo ao Meu Portfólio",
+    title: "Rafael Dantas",
     description:
-      "Sou um desenvolvedor apaixonado, especializado em criar aplicações web bonitas e funcionais. Explore meus projetos e serviços abaixo.",
+      "Engenheiro Fullstack com expertise em DevOps. Construo sistemas escaláveis de ponta a ponta — de UIs pixel-perfect à infraestrutura de produção.",
+    tagline: "conectando sistemas",
+    roles: ["Engenheiro Fullstack", "Engenheiro DevOps", "Infraestrutura"],
     aboutMe: "Sobre Mim",
     seeProjects: "Ver Projetos",
+    contact: "Fale Comigo",
   },
   sectionTitles: {
-    projects: "Meus Projetos",
-    projectsSubtitle: "Veja os meus últimos trabalhos",
+    projects: "Projetos",
+    projectsSubtitle: "O que eu entreguei",
     projectsDescription:
-      "Já trabalhei em uma variedade de projetos, desde sites simples até aplicações web complexas. Aqui estão alguns dos meus favoritos.",
-    about: "Sobre Mim",
-    aboutSubtitle: "Sobre Rafael",
-    aboutDescription:
-      "Nossa equipe é composta por profissionais apaixonados dedicados a entregar as melhores soluções para nossos clientes. Conheça as pessoas por trás dos projetos.",
-    services: "Meus Serviços",
-    servicesSubtitle: "O que eu ofereço",
+      "De plataformas SaaS a stacks de observabilidade — uma seleção de sistemas em produção que projetei e implantei.",
+    services: "Serviços",
+    servicesSubtitle: "O que ofereço",
     servicesDescription:
-      "Ofereço uma variedade de serviços para ajudar você a alcançar seus objetivos digitais. Desde o desenvolvimento de sites personalizados até a otimização para mecanismos de busca, estou aqui para ajudar seu negócio a crescer online.",
+      "Ofereço serviços de desenvolvimento e infraestrutura de ponta a ponta para escalar seu produto.",
     reviews: "Avaliações",
-    reviewsSubtitle: "Avaliações de Clientes",
+    reviewsSubtitle: "Feedback de Clientes",
     reviewsDescription:
-      "Feedback real de clientes que confiaram na minha expertise de design para elevar suas marcas com sucesso.",
+      "Feedback real de clientes que confiaram em mim para entregar.",
     footerSubtitle: "Disponível para trabalho",
     getStarted: "Começar",
     available: "Disponível para trabalho",
+    skills: "Habilidades",
+    skillsFrontend: "Frontend",
+    skillsBackend: "Backend",
+    skillsDevops: "DevOps & Infra",
+    projectsAll: "Todos",
+    projectsFrontend: "Frontend",
+    projectsBackend: "Backend",
+    projectsInfra: "Infra",
   },
 };
 

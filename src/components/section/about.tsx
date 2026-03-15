@@ -81,7 +81,7 @@ const About = () => {
   const { data } = useLanguage();
   return (
     <section id="about">
-      <BlurSeparator title={data.sectionTitles.about} />
+      <BlurSeparator title={data.sectionTitles.about ?? ""} />
       <div className="min-h-screen h-full w-full mt-8">
         <div className="grid grid-cols-2">
           <div className="flex flex-col items-center">
