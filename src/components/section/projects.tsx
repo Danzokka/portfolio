@@ -106,7 +106,7 @@ const TerminalCard = memo(function TerminalCard({ project, delay }: TerminalCard
               {project.title}
             </h3>
             <p className="font-mono text-[10px] text-zinc-600 mb-2">
-              // {project.dates}
+              {"// "}{project.dates}
             </p>
             <p className="font-sans text-xs text-zinc-500 line-clamp-2 mb-3">
               {project.description}
