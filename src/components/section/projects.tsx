@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import Image from "next/image";
+import { memo, useMemo, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 import { useBlurFade } from "@/hooks/use-blur-fade";
@@ -30,6 +31,7 @@ interface TabButtonProps {
 function TabButton({ label, active, onClick }: TabButtonProps) {
   return (
     <button
+      type="button"
       onClick={onClick}
       className={`px-4 py-1.5 rounded-full font-mono text-xs transition-all duration-200 cursor-pointer ${
         active
@@ -47,7 +49,7 @@ interface TerminalCardProps {
   delay: number;
 }
 
-function TerminalCard({ project, delay }: TerminalCardProps) {
+const TerminalCard = memo(function TerminalCard({ project, delay }: TerminalCardProps) {
   const ref = useBlurFade<HTMLDivElement>();
   const filename = `${project.slug}${EXT[project.category]}`;
 
@@ -81,12 +83,14 @@ function TerminalCard({ project, delay }: TerminalCardProps) {
           </div>
 
           {/* Image / gradient fallback */}
-          <div className="h-36 overflow-hidden">
+          <div className="h-36 overflow-hidden relative">
             {project.image ? (
-              <img
+              <Image
                 src={project.image}
                 alt={project.title}
-                className="w-full h-full object-cover"
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="object-cover"
               />
             ) : (
               <div
@@ -122,7 +126,7 @@ function TerminalCard({ project, delay }: TerminalCardProps) {
       </Link>
     </div>
   );
-}
+});
 
 export default function Projects() {
   const { data } = useLanguage();
@@ -131,12 +135,15 @@ export default function Projects() {
 
   const titleRef = useBlurFade<HTMLDivElement>();
 
-  const FILTERS: { key: FilterKey; label: string }[] = [
-    { key: "all",      label: sectionTitles.projectsAll      },
-    { key: "frontend", label: sectionTitles.projectsFrontend },
-    { key: "backend",  label: sectionTitles.projectsBackend  },
-    { key: "infra",    label: sectionTitles.projectsInfra    },
-  ];
+  const FILTERS = useMemo<{ key: FilterKey; label: string }[]>(
+    () => [
+      { key: "all",      label: sectionTitles.projectsAll      },
+      { key: "frontend", label: sectionTitles.projectsFrontend },
+      { key: "backend",  label: sectionTitles.projectsBackend  },
+      { key: "infra",    label: sectionTitles.projectsInfra    },
+    ],
+    [sectionTitles]
+  );
 
   const filtered =
     activeFilter === "all"
