@@ -30,7 +30,8 @@ const LINE_COLORS: Record<string, string> = {
   HealthCheck:    "#00FF88",
 };
 
-function getColor(line: string): string {
+function getColor(line: string | undefined): string {
+  if (!line) return "#555";
   for (const [key, color] of Object.entries(LINE_COLORS)) {
     if (line.includes(key)) return color;
   }
@@ -44,31 +45,31 @@ export default function NestConsoleBg() {
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      if (indexRef.current < BOOT_LINES.length) {
-        setVisibleLines((prev) => [...prev, BOOT_LINES[indexRef.current]]);
+    let stopped = false;
+
+    function tick() {
+      if (stopped) return;
+      const line = BOOT_LINES[indexRef.current];
+      if (line !== undefined) {
+        setVisibleLines((prev) => [...prev, line]);
         indexRef.current++;
+        intervalRef.current = setTimeout(tick, 220) as unknown as ReturnType<typeof setInterval>;
       } else {
-        // Restart loop
-        setTimeout(() => {
+        // Pause then restart
+        intervalRef.current = setTimeout(() => {
+          if (stopped) return;
           setVisibleLines([]);
           indexRef.current = 0;
-        }, 2500);
-        clearInterval(intervalRef.current!);
-        intervalRef.current = null;
-        setTimeout(() => {
-          intervalRef.current = setInterval(() => {
-            if (indexRef.current < BOOT_LINES.length) {
-              setVisibleLines((prev) => [...prev, BOOT_LINES[indexRef.current]]);
-              indexRef.current++;
-            }
-          }, 220);
-        }, 3000);
+          intervalRef.current = setTimeout(tick, 220) as unknown as ReturnType<typeof setInterval>;
+        }, 2500) as unknown as ReturnType<typeof setInterval>;
       }
-    }, 220);
+    }
+
+    intervalRef.current = setTimeout(tick, 220) as unknown as ReturnType<typeof setInterval>;
 
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      stopped = true;
+      if (intervalRef.current) clearTimeout(intervalRef.current as unknown as ReturnType<typeof setTimeout>);
     };
   }, []);
 
