@@ -66,21 +66,16 @@ const Header = () => {
           <div className="flex items-center gap-2">
             {/* Language toggle */}
             <button
+              type="button"
               onClick={() => setLanguage(language === "pt" ? "en" : "pt")}
               title={language === "pt" ? "Switch to English" : "Mudar para Português"}
-              className="relative size-9 rounded-full border border-purple-500/40 bg-purple-950/30 hover:bg-purple-900/40 hover:border-purple-400/60 backdrop-blur-sm transition-all duration-300 overflow-hidden group p-0 cursor-pointer"
+              className="flex flex-col items-center gap-0.5 cursor-pointer group"
             >
-              <span
-                className="absolute inset-0 flex items-center justify-center leading-none transition-all duration-300 group-hover:opacity-0 group-hover:scale-75"
-                style={{ fontSize: "44px" }}
-              >
+              <div className="w-9 h-9 rounded-lg border border-zinc-800 bg-zinc-950 flex items-center justify-center text-xl transition-all duration-200 group-hover:border-[#6C63FF] group-hover:bg-[#6C63FF]/5">
                 {language === "pt" ? "🇧🇷" : "🇺🇸"}
-              </span>
-              <span
-                className="absolute inset-0 flex items-center justify-center leading-none opacity-0 scale-75 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100"
-                style={{ fontSize: "36px" }}
-              >
-                {language === "pt" ? "🇺🇸" : "🇧🇷"}
+              </div>
+              <span className="font-mono text-[8px] text-zinc-700 tracking-widest select-none">
+                PT / EN
               </span>
             </button>
 
