@@ -69,12 +69,13 @@ const Header = () => {
               type="button"
               onClick={() => setLanguage(language === "pt" ? "en" : "pt")}
               title={language === "pt" ? "Switch to English" : "Mudar para Português"}
+              aria-label={language === "pt" ? "Switch to English" : "Mudar para Português"}
               className="flex flex-col items-center gap-0.5 cursor-pointer group"
             >
-              <div className="w-9 h-9 rounded-lg border border-zinc-800 bg-zinc-950 flex items-center justify-center text-xl transition-all duration-200 group-hover:border-[#6C63FF] group-hover:bg-[#6C63FF]/5">
+              <div aria-hidden="true" className="w-9 h-9 rounded-lg border border-zinc-800 bg-zinc-950 flex items-center justify-center text-xl transition-all duration-200 group-hover:border-[#6C63FF] group-hover:bg-[#6C63FF]/5">
                 {language === "pt" ? "🇧🇷" : "🇺🇸"}
               </div>
-              <span className="font-mono text-[8px] text-zinc-700 tracking-widest select-none">
+              <span aria-hidden="true" className="font-mono text-[8px] text-zinc-700 tracking-widest select-none">
                 PT / EN
               </span>
             </button>

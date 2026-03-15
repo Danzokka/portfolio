@@ -67,9 +67,10 @@ const Footer = () => {
                   href={s.url}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`${s.name} (opens in new tab)`}
                   className="font-mono text-[11px] text-zinc-600 hover:text-[#6C63FF] transition-colors lg:text-right"
                 >
-                  {s.url.replace("https://", "")}
+                  {s.url.replace(/^https?:\/\//, "")}
                 </a>
               ))}
               <a
