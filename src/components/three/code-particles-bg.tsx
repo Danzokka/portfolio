@@ -81,26 +81,37 @@ export default function CodeParticlesBg() {
     }
 
     const BOUNDS = { x: 5.2, y: 4.2 };
-    const pos = dotGeo.attributes.position as THREE.BufferAttribute;
-    const posArr = pos.array as Float32Array;
+    const posAttr = dotGeo.attributes.position as THREE.BufferAttribute;
 
     let animId: number;
     function animate() {
       animId = requestAnimationFrame(animate);
 
       for (let i = 0; i < DOT_COUNT; i++) {
-        posArr[i * 3]     += dotVels[i].vx;
-        posArr[i * 3 + 1] += dotVels[i].vy;
-        if (Math.abs(posArr[i * 3])     > BOUNDS.x) dotVels[i].vx *= -1;
-        if (Math.abs(posArr[i * 3 + 1]) > BOUNDS.y) dotVels[i].vy *= -1;
+        dotPositions[i * 3]     += dotVels[i].vx;
+        dotPositions[i * 3 + 1] += dotVels[i].vy;
+        if (Math.abs(dotPositions[i * 3]) > BOUNDS.x) {
+          dotVels[i].vx *= -1;
+          dotPositions[i * 3] = Math.sign(dotPositions[i * 3]) * BOUNDS.x;
+        }
+        if (Math.abs(dotPositions[i * 3 + 1]) > BOUNDS.y) {
+          dotVels[i].vy *= -1;
+          dotPositions[i * 3 + 1] = Math.sign(dotPositions[i * 3 + 1]) * BOUNDS.y;
+        }
       }
-      pos.needsUpdate = true;
+      posAttr.needsUpdate = true;
 
       for (const s of sprites) {
         s.sprite.position.x += s.vx;
         s.sprite.position.y += s.vy;
-        if (Math.abs(s.sprite.position.x) > BOUNDS.x) s.vx *= -1;
-        if (Math.abs(s.sprite.position.y) > BOUNDS.y) s.vy *= -1;
+        if (Math.abs(s.sprite.position.x) > BOUNDS.x) {
+          s.vx *= -1;
+          s.sprite.position.x = Math.sign(s.sprite.position.x) * BOUNDS.x;
+        }
+        if (Math.abs(s.sprite.position.y) > BOUNDS.y) {
+          s.vy *= -1;
+          s.sprite.position.y = Math.sign(s.sprite.position.y) * BOUNDS.y;
+        }
       }
 
       renderer.render(scene, camera);
@@ -109,6 +120,12 @@ export default function CodeParticlesBg() {
 
     return () => {
       cancelAnimationFrame(animId);
+      dotGeo.dispose();
+      dotMat.dispose();
+      for (const s of sprites) {
+        s.sprite.material.map?.dispose();
+        s.sprite.material.dispose();
+      }
       renderer.dispose();
       if (el.contains(renderer.domElement)) el.removeChild(renderer.domElement);
     };
