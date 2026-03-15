@@ -28,7 +28,7 @@ const Footer = () => {
 
         {/* CTA heading */}
         <h2 className="font-sans font-bold text-3xl sm:text-4xl text-zinc-100 max-w-md">
-          {sectionTitles.footerSubtitle}
+          {sectionTitles.footerHeadline}
         </h2>
 
         {/* CTA button */}

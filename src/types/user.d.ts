@@ -4,6 +4,14 @@ export type Skill = {
   name: string;
   icon: JSX.Element | SVGSVGElement;
   category: 'frontend' | 'backend' | 'devops';
+  level?: 'expert' | 'advanced' | 'learning';
+  description?: string;
+};
+
+export type SkillDescriptions = {
+  frontend: string;
+  backend: string;
+  devops: string;
 };
 
 type SocialContact = {
@@ -113,7 +121,9 @@ type SectionTitles = {
   reviews: string;
   reviewsSubtitle: string;
   reviewsDescription: string;
-  footerSubtitle: string;
+  footerHeadline: string;
+  footerPitch: string;
+  footerResume: string;
   getStarted: string;
   available: string;
   skills: string;
@@ -137,6 +147,7 @@ type User = {
   avatar: string;
   contact: Contact;
   skills: Skill[];
+  skillDescriptions: SkillDescriptions;
   work: Work[];
   education: Education[];
   projects: Project[];
