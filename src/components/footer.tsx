@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { MapPin, FileText } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 import { useBlurFade } from "@/hooks/use-blur-fade";
