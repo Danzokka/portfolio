@@ -3,103 +3,146 @@ import { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
-const STAGES = [
-  { label: "clone",   x: -3.2, color: "#6C63FF" },
-  { label: "install", x: -1.6, color: "#8B85FF" },
-  { label: "test",    x:  0.0, color: "#00D4FF" },
-  { label: "build",   x:  1.6, color: "#00FF88" },
-  { label: "deploy",  x:  3.2, color: "#00FF88" },
-];
+const STAGE_COLORS = ["#6C63FF", "#8B85FF", "#00D4FF", "#00FF88", "#00FF88"];
+const STAGE_X = [-3.2, -1.6, 0.0, 1.6, 3.2];
+const ROW_Y = [1.4, 0.4, -0.6, -1.6];
+const NODE_R = 0.13;
 
-const Y = 0;
-const NODE_R = 0.15;
-const PIPE_Y = Y;
+// Each row has a different phase offset so pulses are staggered
+const ROW_PHASES = [0, 1.8, 3.6, 5.4];
 
-function Pipeline() {
-  const pulseRef = useRef<THREE.Mesh>(null);
+function MultiPipeline() {
+  const pulseRefs = useRef<(THREE.Mesh | null)[]>([null, null, null, null]);
   const time = useRef(0);
-  const pulseX = useRef(STAGES[0].x);
-  const segmentIndex = useRef(0);
+  const pulseX = useRef(ROW_PHASES.map(() => STAGE_X[0]));
+  const segIdx = useRef(ROW_PHASES.map(() => 0));
 
-  const nodeMats = useMemo(
-    () => STAGES.map((s) => new THREE.MeshBasicMaterial({ color: s.color, transparent: true, opacity: 0.8 })),
-    []
-  );
+  const nodeMats = useMemo(() =>
+    ROW_Y.flatMap(() =>
+      STAGE_COLORS.map((c) =>
+        new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: 0.7 })
+      )
+    ), []);
 
   const pipeMat = useMemo(
-    () => new THREE.LineBasicMaterial({ color: "#1a1a1a", transparent: true, opacity: 0.5 }),
+    () => new THREE.LineBasicMaterial({ color: "#00FF88", transparent: true, opacity: 0.18 }),
     []
   );
 
-  const pulseMat = useMemo(
-    () => new THREE.MeshBasicMaterial({ color: "#00FF88", transparent: true, opacity: 0.9 }),
+  const pulseMats = useMemo(
+    () => ROW_Y.map((_, row) =>
+      new THREE.MeshBasicMaterial({
+        color: STAGE_COLORS[Math.min(segIdx.current[row] + 1, STAGE_COLORS.length - 1)],
+        transparent: true,
+        opacity: 0.95,
+      })
+    ),
     []
   );
 
-  const pipeGeo = useMemo(() => {
-    const pts = STAGES.map((s) => new THREE.Vector3(s.x, PIPE_Y, 0));
+  const pipeGeos = useMemo(() =>
+    ROW_Y.map((y) => {
+      const pts = STAGE_X.map((x) => new THREE.Vector3(x, y, 0));
+      return new THREE.BufferGeometry().setFromPoints(pts);
+    }), []);
+
+  // Vertical connector lines between rows
+  const connectorGeo = useMemo(() => {
+    const pts: THREE.Vector3[] = [];
+    STAGE_X.forEach((x) => {
+      ROW_Y.forEach((y, yi) => {
+        if (yi < ROW_Y.length - 1) {
+          pts.push(new THREE.Vector3(x, y, 0));
+          pts.push(new THREE.Vector3(x, ROW_Y[yi + 1], 0));
+        }
+      });
+    });
     return new THREE.BufferGeometry().setFromPoints(pts);
   }, []);
 
+  const connectorMat = useMemo(
+    () => new THREE.LineBasicMaterial({ color: "#6C63FF", transparent: true, opacity: 0.08 }),
+    []
+  );
+
   useFrame((_, delta) => {
     time.current += delta;
+    const speed = 1.4;
 
-    const speed = 1.2; // units per second
-    const seg = segmentIndex.current;
-    const from = STAGES[seg].x;
-    const to = STAGES[Math.min(seg + 1, STAGES.length - 1)].x;
+    ROW_Y.forEach((_, row) => {
+      const seg = segIdx.current[row];
+      const to = STAGE_X[Math.min(seg + 1, STAGE_X.length - 1)];
 
-    pulseX.current += speed * delta;
-    if (pulseX.current >= to) {
-      if (seg < STAGES.length - 2) {
-        segmentIndex.current = seg + 1;
-        pulseX.current = from;
-      } else {
-        // Reset
-        segmentIndex.current = 0;
-        pulseX.current = STAGES[0].x;
+      pulseX.current[row] += speed * delta;
+      if (pulseX.current[row] >= to) {
+        if (seg < STAGE_X.length - 2) {
+          segIdx.current[row] = seg + 1;
+          pulseX.current[row] = STAGE_X[seg];
+          pulseMats[row].color.set(STAGE_COLORS[seg + 1]);
+        } else {
+          segIdx.current[row] = 0;
+          pulseX.current[row] = STAGE_X[0];
+          pulseMats[row].color.set(STAGE_COLORS[0]);
+        }
       }
-    }
 
-    if (pulseRef.current) {
-      pulseRef.current.position.x = pulseX.current;
-    }
+      const ref = pulseRefs.current[row];
+      if (ref) ref.position.x = pulseX.current[row];
+    });
 
-    // Node pulse
+    // Pulse node opacities
     nodeMats.forEach((mat, i) => {
-      mat.opacity = 0.5 + 0.35 * Math.sin(time.current * 1.5 + i * 1.2);
+      mat.opacity = 0.4 + 0.4 * Math.sin(time.current * 1.2 + i * 0.5);
     });
   });
 
   return (
     <group>
-      {/* Pipe line */}
-      <primitive object={new THREE.Line(pipeGeo, pipeMat)} />
-
-      {/* Stage nodes */}
-      {STAGES.map((s, i) => (
-        <mesh key={i} position={[s.x, Y, 0]} material={nodeMats[i]}>
-          <circleGeometry args={[NODE_R, 16]} />
-        </mesh>
+      {/* Horizontal pipe lines per row */}
+      {ROW_Y.map((y, row) => (
+        <primitive key={`pipe-${row}`} object={new THREE.Line(pipeGeos[row], pipeMat)} />
       ))}
 
-      {/* Travelling pulse */}
-      <mesh ref={pulseRef} position={[STAGES[0].x, Y, 0.01]} material={pulseMat}>
-        <circleGeometry args={[0.07, 12]} />
-      </mesh>
+      {/* Vertical connectors */}
+      <primitive object={new THREE.LineSegments(connectorGeo, connectorMat)} />
+
+      {/* Nodes */}
+      {ROW_Y.map((y, row) =>
+        STAGE_X.map((x, col) => (
+          <mesh
+            key={`node-${row}-${col}`}
+            position={[x, y, 0]}
+            material={nodeMats[row * STAGE_X.length + col]}
+          >
+            <circleGeometry args={[NODE_R, 16]} />
+          </mesh>
+        ))
+      )}
+
+      {/* Travelling pulses per row */}
+      {ROW_Y.map((y, row) => (
+        <mesh
+          key={`pulse-${row}`}
+          ref={(el) => { pulseRefs.current[row] = el; }}
+          position={[STAGE_X[0], y, 0.01]}
+          material={pulseMats[row]}
+        >
+          <circleGeometry args={[0.07, 12]} />
+        </mesh>
+      ))}
     </group>
   );
 }
 
 export default function PipelineBg() {
   return (
-    <div className="absolute inset-0 pointer-events-none opacity-[0.08]" aria-hidden>
+    <div className="absolute inset-0 pointer-events-none" aria-hidden>
       <Canvas
-        camera={{ position: [0, 0, 5], fov: 55 }}
+        camera={{ position: [0, 0, 5], fov: 60 }}
         gl={{ antialias: false, alpha: true }}
         style={{ background: "transparent" }}
       >
-        <Pipeline />
+        <MultiPipeline />
       </Canvas>
     </div>
   );

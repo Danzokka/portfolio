@@ -95,7 +95,7 @@ function ComponentTree() {
 
 export default function ComponentTreeBg() {
   return (
-    <div className="absolute inset-0 pointer-events-none opacity-[0.08]" aria-hidden>
+    <div className="absolute inset-0 pointer-events-none" aria-hidden>
       <Canvas
         camera={{ position: [0, 0, 5], fov: 55 }}
         gl={{ antialias: false, alpha: true }}

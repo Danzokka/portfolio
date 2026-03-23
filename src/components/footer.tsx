@@ -35,7 +35,7 @@ const Footer = () => {
               </a>
               {/* Resume CTA */}
               <a
-                href="/resume.pdf"
+                href="/resume/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 h-10 px-4 border border-zinc-800 rounded-md font-mono text-xs text-zinc-500 hover:border-zinc-600 hover:text-zinc-300 transition-all duration-200"

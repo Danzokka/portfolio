@@ -21,63 +21,45 @@ const PipelineBg = dynamic(
 const TABS = ["frontend", "backend", "devops"] as const;
 type Tab = (typeof TABS)[number];
 
-const TAB_COLORS: Record<Tab, string> = {
-  frontend: "#6C63FF",
-  backend:  "#00D4FF",
-  devops:   "#00FF88",
+const TAB_CFG: Record<
+  Tab,
+  { color: string; glow: string; border: string; ext: string }
+> = {
+  frontend: {
+    color: "#6C63FF",
+    glow: "rgba(108, 99, 255, 0.10)",
+    border: "rgba(108, 99, 255, 0.30)",
+    ext: ".tsx",
+  },
+  backend: {
+    color: "#00D4FF",
+    glow: "rgba(0, 212, 255, 0.08)",
+    border: "rgba(0, 212, 255, 0.26)",
+    ext: ".ts",
+  },
+  devops: {
+    color: "#00FF88",
+    glow: "rgba(0, 255, 136, 0.07)",
+    border: "rgba(0, 255, 136, 0.24)",
+    ext: ".sh",
+  },
 };
 
-const SKILL_EXT: Record<Skill["category"], string> = {
-  frontend: ".tsx",
-  backend:  ".ts",
-  devops:   ".sh",
-};
+const AUTO_ROTATE_MS = 10000;
 
-const BADGE_STYLES: Record<string, string> = {
-  expert:   "bg-[#6C63FF]/15 text-[#a89fff]",
-  advanced: "bg-[#00D4FF]/10 text-[#00D4FF]",
-  learning: "bg-[#00FF88]/8  text-[#00FF88]",
-};
-
-interface SkillCardProps {
-  skill: Skill;
-  featured?: boolean;
-}
-
-function SkillCard({ skill, featured = false }: SkillCardProps) {
-  const filename =
-    skill.name.toLowerCase().replace(/\s+/g, "-") + SKILL_EXT[skill.category];
+function SkillCard({ skill }: { skill: Skill }) {
   return (
-    <div
-      className={`bg-[#080808] border border-[#1a1a1a] rounded-md overflow-hidden hover:border-[#6C63FF]/30 transition-colors duration-200 cursor-default${featured ? " col-span-2" : ""}`}
-    >
-      {/* Terminal top bar */}
-      <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-[#0d0d0d] border-b border-[#111]">
-        <div className="flex gap-1">
-          <div className="w-1.5 h-1.5 rounded-full bg-[#ff5f57]" />
-          <div className="w-1.5 h-1.5 rounded-full bg-[#ffbd2e]" />
-          <div className="w-1.5 h-1.5 rounded-full bg-[#28c840]" />
-        </div>
-        <span className="font-mono text-[8px] text-zinc-700 ml-1">{filename}</span>
-      </div>
-      {/* Body */}
-      <div className="p-2.5">
-        <div className="flex items-center gap-1.5 mb-1.5">
-          <span className="size-4 flex-shrink-0 flex items-center">
-            {skill.icon as React.ReactNode}
-          </span>
-          <span className="font-mono text-[10px] text-zinc-300">{skill.name}</span>
-        </div>
+    <div className="flex flex-col gap-3 p-4 rounded-xl bg-black/50 border border-white/[0.06] hover:border-white/[0.16] transition-all duration-200 cursor-default group backdrop-blur-sm">
+      <span className="size-6 flex-shrink-0 flex items-center justify-center">
+        {skill.icon as React.ReactNode}
+      </span>
+      <div>
+        <span className="font-mono text-sm text-zinc-200 group-hover:text-white transition-colors duration-200 block leading-tight">
+          {skill.name}
+        </span>
         {skill.description && (
-          <p className="font-sans text-[9px] text-zinc-600 leading-relaxed mb-2">
+          <span className="font-sans text-xs text-zinc-500 block leading-snug mt-1">
             {skill.description}
-          </p>
-        )}
-        {skill.level && (
-          <span
-            className={`inline-block font-mono text-[7px] px-1.5 py-0.5 rounded-sm ${BADGE_STYLES[skill.level] ?? ""}`}
-          >
-            {skill.level}
           </span>
         )}
       </div>
@@ -90,8 +72,9 @@ export default function Skills() {
   const { sectionTitles, skills, skillDescriptions } = data;
   const [activeTab, setActiveTab] = useState<Tab>("frontend");
   const [progressKey, setProgressKey] = useState(0);
-
   const titleRef = useBlurFade<HTMLDivElement>();
+
+  const cfg = TAB_CFG[activeTab];
 
   function goTo(tab: Tab) {
     setActiveTab(tab);
@@ -101,10 +84,8 @@ export default function Skills() {
   useEffect(() => {
     const idx = TABS.indexOf(activeTab);
     const timer = setTimeout(() => {
-      const next = TABS[(idx + 1) % TABS.length];
-      setActiveTab(next);
-      setProgressKey((k) => k + 1);
-    }, 5000);
+      goTo(TABS[(idx + 1) % TABS.length]);
+    }, AUTO_ROTATE_MS);
     return () => clearTimeout(timer);
   }, [activeTab]);
 
@@ -115,7 +96,6 @@ export default function Skills() {
   };
 
   const filteredSkills = skills.filter((s) => s.category === activeTab);
-  const [featuredSkill, ...restSkills] = filteredSkills;
 
   return (
     <section id="skills" className="w-full py-24 px-4 max-w-6xl mx-auto">
@@ -131,69 +111,106 @@ export default function Skills() {
 
       {/* Tab strip */}
       <div role="tablist" aria-label={sectionTitles.skills} className="flex border-b border-[#1a1a1a]">
-        {TABS.map((tab) => (
-          <button
-            key={tab}
-            role="tab"
-            aria-selected={activeTab === tab}
-            tabIndex={activeTab === tab ? 0 : -1}
-            onClick={() => goTo(tab)}
-            className={`px-5 py-2.5 font-mono text-xs uppercase tracking-widest transition-colors duration-200 cursor-pointer border-b-2 -mb-px ${
-              activeTab === tab
-                ? "text-zinc-100"
-                : "text-zinc-600 border-transparent hover:text-zinc-400"
-            }`}
-            style={
-              activeTab === tab
-                ? { borderColor: TAB_COLORS[tab], color: TAB_COLORS[tab] }
-                : {}
-            }
-          >
-            {tabLabels[tab]}
-          </button>
-        ))}
+        {TABS.map((tab) => {
+          const c = TAB_CFG[tab];
+          const isActive = activeTab === tab;
+          return (
+            <button
+              key={tab}
+              role="tab"
+              aria-selected={isActive}
+              tabIndex={isActive ? 0 : -1}
+              onClick={() => goTo(tab)}
+              className="px-5 py-2.5 font-mono text-xs uppercase tracking-widest transition-colors duration-200 cursor-pointer border-b-2 -mb-px"
+              style={
+                isActive
+                  ? { borderColor: c.color, color: c.color }
+                  : { borderColor: "transparent", color: "#52525b" }
+              }
+            >
+              {tabLabels[tab]}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Progress bar (key-based reset forces CSS animation restart) */}
+      {/* Progress bar */}
       <div className="h-px bg-[#0d0d0d]">
         <div
           key={progressKey}
           className="h-full w-0 animate-progress-bar"
-          style={{ background: TAB_COLORS[activeTab] }}
+          style={{ background: cfg.color }}
         />
       </div>
 
-      {/* Panel */}
-      <div className="relative overflow-hidden border border-t-0 border-[#1a1a1a] rounded-b-xl bg-[#050505] p-6">
-        {/* Three.js atmospheric bg — only active tab renders */}
-        <div className="absolute inset-0 opacity-[0.08] pointer-events-none">
+      {/* Main panel */}
+      <div
+        className="relative overflow-hidden rounded-2xl bg-[#030303] transition-shadow duration-500"
+        style={{
+          border: `1px solid ${cfg.border}`,
+          boxShadow: `0 0 80px ${cfg.glow}, 0 0 20px ${cfg.glow}`,
+        }}
+      >
+        {/* Top accent line */}
+        <div
+          className="absolute inset-x-0 top-0 h-px pointer-events-none"
+          style={{
+            background: `linear-gradient(to right, transparent, ${cfg.color}99, transparent)`,
+          }}
+        />
+
+        {/* Three.js animated background — full panel */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.22]">
           {activeTab === "frontend" && <ComponentTreeBg />}
           {activeTab === "backend"  && <NestConsoleBg />}
           {activeTab === "devops"   && <PipelineBg />}
         </div>
 
-        <div className="relative z-10 flex flex-col lg:flex-row gap-8">
-          {/* Left: category description */}
+        {/* Bottom fade */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-1/2 pointer-events-none"
+          style={{
+            background: `linear-gradient(to top, #030303 0%, transparent 100%)`,
+          }}
+        />
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col lg:flex-row gap-8 p-6 lg:p-8">
+          {/* Left: category info */}
           <div className="lg:w-2/5">
-            <p
-              aria-hidden="true"
-              className="font-mono text-[9px] uppercase tracking-[3px] mb-2"
-              style={{ color: TAB_COLORS[activeTab] }}
+            <span
+              className="font-mono text-[9px] uppercase tracking-[3px] mb-2 block"
+              style={{ color: cfg.color }}
+            >
+              {cfg.ext}
+            </span>
+            <h3
+              className="font-sans text-2xl font-bold mb-3"
+              style={{ color: cfg.color }}
             >
               {tabLabels[activeTab]}
-            </p>
-            <h3 className="font-sans text-xl font-bold text-zinc-100 mb-3">
-              {tabLabels[activeTab]}
             </h3>
-            <p className="font-sans text-sm text-zinc-500 leading-relaxed">
+            <p className="font-sans text-sm text-zinc-400 leading-relaxed">
               {skillDescriptions[activeTab]}
             </p>
+
+            {/* Skill count */}
+            <div className="mt-6">
+              <p
+                className="font-mono text-2xl font-bold"
+                style={{ color: cfg.color }}
+              >
+                {filteredSkills.length}
+              </p>
+              <p className="font-mono text-[11px] text-zinc-500 uppercase tracking-widest">
+                {sectionTitles.technologies}
+              </p>
+            </div>
           </div>
 
-          {/* Right: skill cards in 2-col terminal grid */}
-          <div className="lg:w-3/5 grid grid-cols-2 gap-1.5">
-            {featuredSkill && <SkillCard skill={featuredSkill} featured />}
-            {restSkills.map((skill) => (
+          {/* Right: skill cards — 2 col mobile, 3 col desktop */}
+          <div className="lg:w-3/5 grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {filteredSkills.map((skill) => (
               <SkillCard key={skill.name} skill={skill} />
             ))}
           </div>

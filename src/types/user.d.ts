@@ -59,6 +59,7 @@ export type Project = {
   description: string;
   technologies: Skill[];
   category: 'frontend' | 'backend' | 'infra';
+  featured?: boolean;
   image?: string;
   video?: string;
   links?: {
@@ -124,6 +125,9 @@ type SectionTitles = {
   footerHeadline: string;
   footerPitch: string;
   footerResume: string;
+  contact: string;
+  contactDescription: string;
+  contactEmail: string;
   getStarted: string;
   available: string;
   skills: string;
@@ -134,6 +138,7 @@ type SectionTitles = {
   projectsFrontend: string;
   projectsBackend: string;
   projectsInfra: string;
+  technologies: string;
 }
 
 type User = {

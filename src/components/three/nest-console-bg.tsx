@@ -87,7 +87,7 @@ export default function NestConsoleBg() {
     >
       <div
         ref={containerRef}
-        className="absolute inset-0 overflow-hidden p-4 opacity-[0.12]"
+        className="absolute inset-0 overflow-hidden p-4"
         style={{ scrollbarWidth: "none" }}
       >
         <pre className="font-mono text-[10px] leading-relaxed whitespace-pre-wrap break-all select-none">
