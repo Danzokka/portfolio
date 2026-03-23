@@ -67,8 +67,8 @@ const COMMON_DATA = {
     { name: "Shell",           icon: <StackIcon name="bash"           className="size-4" variant="dark"/>, category: "devops",  description: "Bash automation scripts" },
     { name: "Git",             icon: <StackIcon name="git"            className="size-4" />,               category: "devops",  description: "Branching, rebasing, hooks" },
     { name: "GitHub",          icon: <StackIcon name="github"         className="size-4" variant="dark"/>, category: "devops",  description: "Actions CI, packages, API" },
-    { name: "GitHub Actions",  icon: <StackIcon name="githubactions"  className="size-4" variant="dark"/>, category: "devops",  description: "CI/CD pipelines" },
-    { name: "Jenkins",         icon: <StackIcon name="jenkins"        className="size-4" variant="dark"/>, category: "devops",  description: "Pipeline as code, webhooks" },
+    { name: "GitHub Actions",  icon: <img src="https://go-skill-icons.vercel.app/api/icons?i=githubactions" className="size-4" alt="GitHub Actions" />, category: "devops",  description: "CI/CD pipelines" },
+    { name: "Jenkins",         icon: <img src="https://go-skill-icons.vercel.app/api/icons?i=jenkins"       className="size-4" alt="Jenkins" />,        category: "devops",  description: "Pipeline as code, webhooks" },
     { name: "N8N",             icon: <StackIcon name="n8n"            className="size-4" />,               category: "devops",  description: "Automation workflows" },
   ] as Skill[]),
 };
@@ -204,7 +204,7 @@ export const DATA_EN: User = {
       technologies: [
         { name: "AWS",     icon: <StackIcon name="aws"     className="size-4" variant="dark"/>, category: "devops" },
         { name: "Docker",  icon: <StackIcon name="docker"  className="size-4" />,              category: "devops" },
-        { name: "Jenkins", icon: <StackIcon name="jenkins" className="size-4" />,              category: "devops" },
+        { name: "Jenkins", icon: <img src="https://go-skill-icons.vercel.app/api/icons?i=jenkins" className="size-4" alt="Jenkins" />, category: "devops" },
         { name: "Grafana", icon: <StackIcon name="grafana" className="size-4" variant="dark"/>, category: "devops" },
       ],
       links: [
@@ -393,7 +393,7 @@ export const DATA_EN: User = {
     },
   ],
   metrics: [
-    { value: 5,   suffix: "+",  label: "Years of Experience" },
+    { value: 3,   suffix: "+",  label: "Years of Experience" },
     { value: 20,  suffix: "+",  label: "Projects Completed"  },
     { value: 0,   suffix: "",   label: "Coffee Cups",   isInfinity: true },
   ],
@@ -740,7 +740,7 @@ export const DATA_PT: User = {
         },
         {
           name: "Jenkins",
-          icon: <StackIcon name="jenkins" className="size-4" />,
+          icon: <img src="https://go-skill-icons.vercel.app/api/icons?i=jenkins" className="size-4" alt="Jenkins" />,
           category: "devops",
         },
         {
@@ -1035,7 +1035,7 @@ export const DATA_PT: User = {
     },
   ],
   metrics: [
-    { value: 5, suffix: "+", label: "Anos de Experiência" },
+    { value: 3, suffix: "+", label: "Anos de Experiência" },
     { value: 20, suffix: "+", label: "Projetos Concluídos" },
     { value: 0, suffix: "", label: "Xícaras de Café", isInfinity: true },
   ],
